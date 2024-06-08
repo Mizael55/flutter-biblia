@@ -78,8 +78,7 @@ class Book {
   Future<List<Map<String, Object>>> fetchSpecificChapter(
       String name, int cap) async {
     final response = SpanishBible.spanishBible
-        .where(
-            (element) => element['Book'] == name && element['Chapter'] == cap)
+        .skipWhile((element) => !(element['Book'] == name && element['Chapter'] == cap))
         .toList();
     return response;
   }

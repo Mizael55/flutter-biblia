@@ -2,10 +2,19 @@ import 'package:biblia/services/book.dart';
 import 'package:flutter/material.dart';
 
 class BooksNamesProvider extends ChangeNotifier {
+  late int cap;
   final List<Map<String, Object>> _chapterList = [];
   final List<Map<String, Object>> _byBook = [];
   List<Map<String, Object>> get chapterList => _chapterList;
   List<Map<String, Object>> get byBook => _byBook;
+  // get de cap
+  int getCap() {
+    return cap;
+  }
+  // crea un set de cap
+  void setCap(int cap) {
+    this.cap = cap;
+  }
   // final List<NameBooks> _booksNames = [];
   // final Map<dynamic, dynamic> _chapter = {};
 
@@ -59,7 +68,7 @@ class BooksNamesProvider extends ChangeNotifier {
   }
 
   Future<List<Map<String, Object>>> fetchSpecificChapter(
-      String name, int cap) async {
+      String name) async {
     final List<Map<String, Object>> chapterList =
         await Book().fetchSpecificChapter(name, cap);
     _byBook.clear();
