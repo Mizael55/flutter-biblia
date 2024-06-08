@@ -1,23 +1,70 @@
 import 'package:biblia/services/book.dart';
 import 'package:flutter/material.dart';
-import '../models/models.dart';
 
 class BooksNamesProvider extends ChangeNotifier {
-  final List<NameBooks> _booksNames = [];
-  final Map<dynamic,dynamic> _chapter = {};
+  final List<Map<String, Object>> _chapterList = [];
+  final List<Map<String, Object>> _byBook = [];
+  List<Map<String, Object>> get chapterList => _chapterList;
+  List<Map<String, Object>> get byBook => _byBook;
+  // final List<NameBooks> _booksNames = [];
+  // final Map<dynamic, dynamic> _chapter = {};
 
-  List<NameBooks> get booksNames => _booksNames;
-  Map<dynamic,dynamic> get chapter => _chapter;
+  // List<NameBooks> get booksNames => _booksNames;
+  // Map<dynamic, dynamic> get chapter => _chapter;
 
-  Future<void> gettingBooksNames() async {
-    final List<NameBooks> booksNames = await Book().fetchBooks();
-    _booksNames.addAll(booksNames);
+// crea un set de name y cap
+  // void setChapter({required String name, required int cap}) {
+  //   this.name = name;
+  //   this.cap = cap;
+  // }
+
+  // Future<void> gettingBooksNames() async {
+  //   final List<NameBooks> booksNames = await Book().fetchBooks();
+  //   _booksNames.addAll(booksNames);
+  //   notifyListeners();
+  // }
+
+  // Future<void> gettingChapter(String? name, int? cap) async {
+  //   final parsing = cap.toString();
+  //   final Map<dynamic, dynamic> chapter =
+  //       await Book().fetchChapter(name, parsing);
+  //   _chapter.addAll(chapter);
+  //   notifyListeners();
+  // }
+
+  // Future<void> nextChapter() async {
+  //   final Map<dynamic, dynamic> chapter = await Book().nextChapter(name, cap);
+  //   _chapter.clear();
+  //   _chapter.addAll(chapter);
+  //   cap++;
+  //   notifyListeners();
+  // }
+
+  // Future<void> previousChapter() async {
+  //   final Map<dynamic, dynamic> chapter =
+  //       await Book().previousChapter(name, cap);
+  //   _chapter.clear();
+  //   _chapter.addAll(chapter);
+  //   cap--;
+  //   notifyListeners();
+  // }
+
+  Future<List<Map<String, Object>>> getChapterList() async {
+    final List<Map<String, Object>> chapterList = await Book().fetching();
+    _chapterList.clear();
+    _chapterList.addAll(chapterList);
     notifyListeners();
+
+    return chapterList;
   }
 
-  Future<void> gettingChapter(String? name, String? cap) async {
-    final Map<dynamic,dynamic> chapter = await Book().fetchChapter( name, cap);
-    _chapter.addAll(chapter);
+  Future<List<Map<String, Object>>> fetchSpecificChapter(
+      String name, int cap) async {
+    final List<Map<String, Object>> chapterList =
+        await Book().fetchSpecificChapter(name, cap);
+    _byBook.clear();
+    _byBook.addAll(chapterList);
     notifyListeners();
+    return chapterList;
   }
 }

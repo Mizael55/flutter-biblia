@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
@@ -8,45 +9,65 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chapter = Provider.of<BooksNamesProvider>(context).chapter;
-    return Scaffold(
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-              icon: const Icon(Icons.menu, color: Colors.black),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              }),
+    final chapter = Provider.of<BooksNamesProvider>(context).chapterList;
+
+    if (chapter.isEmpty) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator.adaptive(),
         ),
-        title: Text('${chapter['name']}'),
-      ),
-      drawer: const DrawerScreen(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 15, top: 20),
-            child: Text('Capitulo ${chapter['chapter']}',
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      );
+    }
+    return Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (context) => IconButton(
+                icon: const Icon(Icons.menu, color: Colors.black),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                }),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: chapter['vers'].length,
-              itemBuilder: (context, index) {
-                final verse = chapter['vers'][index];
-                return ListTile(
-                  title: Text('${verse['number']}: ${verse['verse']}'),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.chat_rounded),
-      ),
-    );
+          title: Text('${chapter[0]['Book']}'),
+        ),
+        drawer: const DrawerScreen(),
+        body: ListView.builder(
+          itemCount: chapter.length,
+          itemBuilder: (context, index) {
+            final data = chapter[index];
+            return ListTile(
+              title: data['Verse'] == 1
+                  ? Text(
+                      'Capitulo: ${data['Chapter']}',
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : null,
+              subtitle: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start, // Alinea los widgets al inicio
+                  children: <Widget>[
+                    Text(
+                      '${data['Verse']}  ',
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${data['Text']}',
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ));
   }
 }
