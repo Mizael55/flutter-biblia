@@ -33,6 +33,9 @@ class DrawerScreen extends StatelessWidget {
                     itemBuilder: (context, gridIndex) {
                       return GestureDetector(
                         onTap: () {
+                          Provider.of<BooksNamesProvider>(context, listen: false)
+                              .gettingChapter(
+                                  booksNames[index].names[0], '${gridIndex + 1}');
                           Navigator.of(context).pop();
                         },
                         child: Container(

@@ -18,17 +18,30 @@ class HomeScreen extends StatelessWidget {
                 Scaffold.of(context).openDrawer();
               }),
         ),
-        title: Text('${chapter['name']} ${chapter['chapter']}'),
+        title: Text('${chapter['name']}'),
       ),
       drawer: const DrawerScreen(),
-      body: ListView.builder(
-        itemCount: chapter['vers'].length,
-        itemBuilder: (context, index) {
-          final verse = chapter['vers'][index];
-          return ListTile(
-            title: Text('${verse['number']}: ${verse['verse']}'),
-          );
-        },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 15, top: 20),
+            child: Text('Capitulo ${chapter['chapter']}',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: chapter['vers'].length,
+              itemBuilder: (context, index) {
+                final verse = chapter['vers'][index];
+                return ListTile(
+                  title: Text('${verse['number']}: ${verse['verse']}'),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

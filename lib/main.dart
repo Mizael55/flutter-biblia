@@ -30,7 +30,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<BooksNamesProvider>(context, listen: false).gettingBooksNames();
-    Provider.of<BooksNamesProvider>(context, listen: false).gettingChapter();
+    Provider.of<BooksNamesProvider>(context, listen: false).gettingChapter(
+      '',''
+    );
     return const HomeScreen();
   }
 }

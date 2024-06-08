@@ -37,6 +37,7 @@ class NameBooks {
   }
 }
 
+// ignore: constant_identifier_names
 enum Testament { ANTIGUO_TESTAMENTO, NUEVO_TESTAMENTO }
 
 final testamentValues = EnumValues({

@@ -15,9 +15,8 @@ class BooksNamesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> gettingChapter() async {
-    final Map<dynamic,dynamic> chapter = await Book().fetchChapter();
-    print(chapter);
+  Future<void> gettingChapter(String? name, String? cap) async {
+    final Map<dynamic,dynamic> chapter = await Book().fetchChapter( name, cap);
     _chapter.addAll(chapter);
     notifyListeners();
   }
