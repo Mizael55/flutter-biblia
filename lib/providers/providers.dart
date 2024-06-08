@@ -1,1 +1,1 @@
-export 'package:biblia/providers/books_names_providers.dart';
+export 'package:biblia/providers/book_providers.dart';

@@ -18,8 +18,19 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: App(),
       ),
     );
+  }
+}
+
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Provider.of<BooksNamesProvider>(context, listen: false).gettingBooksNames();
+    Provider.of<BooksNamesProvider>(context, listen: false).gettingChapter();
+    return const HomeScreen();
   }
 }

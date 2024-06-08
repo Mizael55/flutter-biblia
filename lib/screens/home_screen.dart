@@ -8,41 +8,28 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final chapter = Provider.of<BooksNamesProvider>(context).chapter;
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.blue,
-        // this is the leading icon to open the drawer menu
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 26),
-          child: Builder(
-            builder: (context) => IconButton(
-                icon: const Icon(Icons.menu, color: Colors.black),
-                onPressed: () {
-                  //TODO: this is a bad practice to call the provider here
-                  // this maybe should be call in the initState method
-                  Provider.of<BooksNamesProvider>(context, listen: false)
-                      .gettingBooksNames();
-                  Scaffold.of(context).openDrawer();
-                }),
-          ),
+        leading: Builder(
+          builder: (context) => IconButton(
+              icon: const Icon(Icons.menu, color: Colors.black),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              }),
         ),
-        title: searchBar(),
+        title: Text('${chapter['name']} ${chapter['chapter']}'),
       ),
       drawer: const DrawerScreen(),
-      body: const Center(
-        child: Text('HomeScreen'),
+      body: ListView.builder(
+        itemCount: chapter['vers'].length,
+        itemBuilder: (context, index) {
+          final verse = chapter['vers'][index];
+          return ListTile(
+            title: Text('${verse['number']}: ${verse['verse']}'),
+          );
+        },
       ),
     );
-  }
-
-  Form searchBar() {
-    return Form(
-        child: TextFormField(
-          decoration: const InputDecoration(
-            hintStyle: TextStyle(color: Colors.white),
-            prefixIcon: Icon(Icons.search, color: Colors.black),
-          ),
-        ),
-      );
   }
 }

@@ -1,1 +1,1 @@
-export 'package:biblia/services/get_books.dart';
+export 'package:biblia/services/book.dart';
