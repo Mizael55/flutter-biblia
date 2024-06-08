@@ -9,7 +9,6 @@ class BooksNamesProvider extends ChangeNotifier {
 
   Future<void> gettingBooksNames() async {
     final List<NameBooks> booksNames = await GetBooks().fetchBooks();
-    // print(booksNames);
     _booksNames.addAll(booksNames);
     notifyListeners();
   }
