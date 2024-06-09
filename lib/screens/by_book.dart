@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../widgets/widgets.dart';
+import 'screens.dart';
 
 class ByBookScreen extends StatelessWidget {
   const ByBookScreen({Key? key}) : super(key: key);
@@ -27,7 +27,33 @@ class ByBookScreen extends StatelessWidget {
                   Scaffold.of(context).openDrawer();
                 }),
           ),
+          centerTitle: true,
           title: Text('${chapter[0]['Book']}'),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.music_note),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LiricsSongsScreen(
+                              coro: true,
+                            )));
+              },
+            ),
+            // agrega otro icono tipo himnario a la derecha del appbar
+            IconButton(
+              icon: const Icon(Icons.book),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LiricsSongsScreen(
+                              coro: false,
+                            )));
+              },
+            ),
+          ],
         ),
         drawer: const DrawerScreen(),
         body: ListView.builder(

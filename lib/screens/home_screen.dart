@@ -27,8 +27,13 @@ class HomeScreen extends StatelessWidget {
                   Scaffold.of(context).openDrawer();
                 }),
           ),
-          title: Text('${chapter[0]['Book']}'),
-          // agrega un icono de musica a la derecha del appbar
+          centerTitle: true,
+          title: Text('${chapter[0]['Book']}',
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold)),
+          
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.music_note),
@@ -36,7 +41,21 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const LiricsSongsScreen()));
+                        builder: (context) => const LiricsSongsScreen(
+                              coro: true,
+                            )));
+              },
+            ),
+            // agrega otro icono tipo himnario a la derecha del appbar
+            IconButton(
+              icon: const Icon(Icons.book),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LiricsSongsScreen(
+                              coro: false,
+                            )));
               },
             ),
           ],
