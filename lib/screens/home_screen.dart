@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../widgets/widgets.dart';
+import 'screens.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -28,6 +28,18 @@ class HomeScreen extends StatelessWidget {
                 }),
           ),
           title: Text('${chapter[0]['Book']}'),
+          // agrega un icono de musica a la derecha del appbar
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.music_note),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LiricsSongsScreen()));
+              },
+            ),
+          ],
         ),
         drawer: const DrawerScreen(),
         body: ListView.builder(
