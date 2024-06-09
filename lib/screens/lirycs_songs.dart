@@ -19,7 +19,7 @@ class LiricsSongsScreen extends StatelessWidget {
                 Scaffold.of(context).openDrawer();
               }),
         ),
-        title: const Text('Canciones'),
+        title: const Text('Canciones', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
             icon: coro ? const Icon(Icons.book) : const Icon(Icons.music_note),
