@@ -10,67 +10,113 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isOldBook = Provider.of<BooksNamesProvider>(context).oldBooks;
     return Drawer(
-        child: ListView.builder(
-      itemCount: booksNames.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-            title: Column(
-          children: <Widget>[
-            ExpansionTile(
-              title: Text(
-                  '${booksNames[index]['names'].toString()} - ${booksNames[index]['chapters'].toString()}',
-                  style: const TextStyle(
-                      fontSize: 17, fontWeight: FontWeight.bold)),
-              children: [
-                if (booksNames[index]['chapters'] != null)
-                  GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: booksNames[index]['chapters'] as int,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 6,
-                    ),
-                    itemBuilder: (context, gridIndex) {
-                      return GestureDetector(
-                        onTap: () {
-                          Provider.of<BooksNamesProvider>(context,
-                                  listen: false)
-                              .setCap(gridIndex + 1);
-                          Provider.of<BooksNamesProvider>(context,
-                                  listen: false)
-                              .fetchSpecificChapter(
-                            booksNames[index]['names'].toString(),
-                          );
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const ByBookScreen();
-                          }));
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10),
+        child: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 70),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Provider.of<BooksNamesProvider>(context, listen: false)
+                      .setOldBooks(true);
+                },
+                child: Text('Antiguo T',
+                    style: TextStyle(
+                        color: Colors.indigo,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
+              ),
+              TextButton(
+                onPressed: () {
+                  Provider.of<BooksNamesProvider>(context, listen: false)
+                      .setOldBooks(false);
+                },
+                child: Text('Nuevo T',
+                    style: TextStyle(
+                        color: Colors.indigo,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.only(top: 1),
+            itemCount: isOldBook ? booksNamesOld.length : bookNamesNew.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                  title: Column(
+                children: <Widget>[
+                  ExpansionTile(
+                    title: Text(
+                        isOldBook
+                            ? '${booksNamesOld[index]['names'].toString()} - ${booksNamesOld[index]['chapters'].toString()}'
+                            : '${bookNamesNew[index]['names'].toString()} - ${bookNamesNew[index]['chapters'].toString()}',
+                        style: const TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.bold)),
+                    children: [
+                      if (booksNamesOld[index]['chapters'] != null ||
+                          bookNamesNew[index]['chapters'] != null)
+                        GridView.builder(
+                          padding: const EdgeInsets.all(1),
+                          shrinkWrap: true,
+                          itemCount: isOldBook
+                              ? booksNamesOld[index]['chapters'] as int
+                              : bookNamesNew[index]['chapters'] as int,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 6,
                           ),
-                          child: Center(
-                            child: Text(
-                              '${gridIndex + 1}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+                          itemBuilder: (context, gridIndex) {
+                            return GestureDetector(
+                              onTap: () {
+                                Provider.of<BooksNamesProvider>(context,
+                                        listen: false)
+                                    .setCap(gridIndex + 1);
+                                Provider.of<BooksNamesProvider>(context,
+                                        listen: false)
+                                    .fetchSpecificChapter(
+                                  isOldBook
+                                      ? booksNamesOld[index]['names'].toString()
+                                      : bookNamesNew[index]['names'].toString(),
+                                );
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return const ByBookScreen();
+                                }));
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    '${gridIndex + 1}',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
-                      );
-                    },
+                    ],
                   ),
-              ],
-            ),
-          ],
-        ));
-      },
+                ],
+              ));
+            },
+          ),
+        ),
+      ],
     ));
   }
 }

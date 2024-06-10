@@ -1,4 +1,4 @@
-final booksNames = [
+final booksNamesOld = [
       {
         'names': 'Génesis',
         'chapters': 50,
@@ -155,7 +155,10 @@ final booksNames = [
         'names': 'Malaquías',
         'chapters': 4,
       },
-      {
+    ];
+
+final bookNamesNew = [
+ {
         'names': 'Mateo',
         'chapters': 28,
       },
@@ -263,4 +266,4 @@ final booksNames = [
         'names': 'Apocalipsis',
         'chapters': 22,
       },
-    ];
+];

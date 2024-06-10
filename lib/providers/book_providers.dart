@@ -2,6 +2,7 @@ import 'package:biblia/services/book.dart';
 import 'package:flutter/material.dart';
 
 class BooksNamesProvider extends ChangeNotifier {
+  bool oldBooks = true;
   late int cap;
   final List<Map<String, Object>> _chapterList = [];
   final List<Map<String, Object>> _byBook = [];
@@ -11,9 +12,17 @@ class BooksNamesProvider extends ChangeNotifier {
   int getCap() {
     return cap;
   }
+  bool getOldBooks() {
+    return oldBooks;
+  }
   // crea un set de cap
   void setCap(int cap) {
     this.cap = cap;
+  }
+
+  void setOldBooks( bool oldBooks) {
+    this.oldBooks = oldBooks;
+    notifyListeners();
   }
   // final List<NameBooks> _booksNames = [];
   // final Map<dynamic, dynamic> _chapter = {};

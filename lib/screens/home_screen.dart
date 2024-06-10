@@ -99,23 +99,7 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue[200],
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.black),
-            label: 'Inicio',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search, color: Colors.black),
-            label: 'Buscar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, color: Colors.black),
-            label: 'Ajustes',
-          ),
-        ],
-      )
+      bottomNavigationBar: BottomNavigator()
       
     );
   }

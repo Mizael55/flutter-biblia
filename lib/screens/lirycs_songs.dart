@@ -63,6 +63,7 @@ class LiricsSongsScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigator()
     );
   }
 }
