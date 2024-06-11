@@ -21,10 +21,13 @@ class MyApp extends StatelessWidget {
           create: (context) => BooksNamesProvider(),
         ),
         ChangeNotifierProvider(create: (context) => ScreenRoute()),
-        ChangeNotifierProvider(create: (context) => LetterSize()),
+        ChangeNotifierProvider(
+            create: (context) => LetterSize(
+              size: Preferences.getSize,
+            )),
         ChangeNotifierProvider(
             create: (context) =>
-                ThemeProvider(isDarkMode: Preferences.isDarkMode)),
+                ThemeProvider(isDarkMode: Preferences.darkMode)),
       ],
       child: SelectedThemeScreen(),
     );

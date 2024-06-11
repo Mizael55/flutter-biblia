@@ -1,6 +1,9 @@
 import 'package:biblia/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/providers.dart';
 
 class LiricsSongsScreen extends StatelessWidget {
   final bool coro;
@@ -9,10 +12,12 @@ class LiricsSongsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context).currentTheme;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon:  Icon(Icons.arrow_back, color: theme == ThemeData.dark() ? Colors.white : Colors.black,
+          ),
           onPressed: () {
             Navigator.push(
               context,
@@ -24,7 +29,7 @@ class LiricsSongsScreen extends StatelessWidget {
         ),
         title: Text(coro ? 'Coros - Harmonia' : 'Himnario',
             style: TextStyle(
-                color: Colors.black,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold)),
         actions: [

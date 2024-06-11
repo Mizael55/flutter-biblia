@@ -20,7 +20,7 @@ class DrawerScreen extends StatelessWidget {
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
-                      isOldBook ? Colors.blue[200] : Colors.white),
+                      isOldBook ? Colors.indigo[200] : Colors.white),
                 ),
                 onPressed: () {
                   Provider.of<BooksNamesProvider>(context, listen: false)
@@ -35,7 +35,7 @@ class DrawerScreen extends StatelessWidget {
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
-                      isOldBook ? Colors.white : Colors.blue[200]),
+                      isOldBook ? Colors.white : Colors.indigo[200]),
                 ),
                 onPressed: () {
                   Provider.of<BooksNamesProvider>(context, listen: false)
@@ -96,7 +96,7 @@ class DrawerScreen extends StatelessWidget {
                               child: Container(
                                 margin: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  color: Colors.indigo,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(

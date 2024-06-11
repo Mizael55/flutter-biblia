@@ -10,8 +10,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final letterSize = Preferences.size;
+    final letterSize = Preferences.getSize;
     final chapter = Provider.of<BooksNamesProvider>(context).chapterList;
+    final theme = Provider.of<ThemeProvider>(context).currentTheme;
 
     if (chapter.isEmpty) {
       return const Scaffold(
@@ -29,15 +30,18 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(
-              icon: const Icon(Icons.menu, color: Colors.black),
+              icon:  Icon(Icons.menu, 
+              color: theme == ThemeData.dark() ? Colors.white : Colors.black,
+
+              ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               }),
         ),
         centerTitle: true,
         title: Text('${chapter[0]['Book']}',
-            style: const TextStyle(
-                color: Colors.black,
+            style:  TextStyle(
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
                 fontSize: 22.0,
                 fontWeight: FontWeight.bold)),
         actions: <Widget>[

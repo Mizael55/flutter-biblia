@@ -9,13 +9,14 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<LetterSize>(context).size;
+   final size = Provider.of<LetterSize>(context).getSize;
+    final theme = Provider.of<ThemeProvider>(context).currentTheme;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Configuración',
             style: TextStyle(
-                color: Colors.black,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold)),
       ),
@@ -48,20 +49,22 @@ class SettingsScreen extends StatelessWidget {
                 Text('Temas',
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                IconButton(
-                    onPressed: () {
-                      Provider.of<ThemeProvider>(context, listen: false)
-                          .setLightMode();
-                      Preferences.darkMode = false;
-                    },
-                    icon: Icon(Icons.light_mode)),
-                IconButton(
-                    onPressed: () {
-                      Provider.of<ThemeProvider>(context, listen: false)
-                          .setDarkMode();
-                      Preferences.darkMode = true;
-                    },
-                    icon: Icon(Icons.dark_mode)),
+               Switch.adaptive(
+                activeColor: Colors.indigo,
+                value: Preferences.darkMode,
+                onChanged: (value) {
+                  if (value) {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .setDarkMode();
+                    Preferences.darkMode = true;
+                  } else {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .setLightMode();
+                    Preferences.darkMode = false;
+                  }
+                },
+               ),
+                
               ],
             ),
           ),
@@ -94,7 +97,7 @@ class SettingsScreen extends StatelessWidget {
               right: 10,
             ),
             child: Slider.adaptive(
-              value: Preferences.size,
+              value: size,
               min: 10,
               max: 30,
               onChanged: (double value) {

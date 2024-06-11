@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class LetterSize extends ChangeNotifier {
-  double _size = 16;
+  double size;
 
-  double get size => _size;
+  LetterSize({
+    required this.size,
+  });
 
-  void setSize(double size) {
-    _size = size;
+  double get getSize => size;
+
+  void setSize(double value) {
+    size = value;
     notifyListeners();
   }
 }
