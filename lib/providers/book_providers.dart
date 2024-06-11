@@ -69,7 +69,6 @@ class BooksNamesProvider extends ChangeNotifier {
 
   Future<List<Map<String, Object>>> getChapterList() async {
     final List<Map<String, Object>> chapterList = await Book().fetching();
-    _chapterList.clear();
     _chapterList.addAll(chapterList);
     notifyListeners();
 

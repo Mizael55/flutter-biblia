@@ -33,3 +33,18 @@ class App extends StatelessWidget {
     return const HomeScreen();
   }
 }
+
+
+class Screen extends StatelessWidget {
+   
+  const Screen({Key? key}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+         child: Text('Screen'),
+      ),
+    );
+  }
+}

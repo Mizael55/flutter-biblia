@@ -12,10 +12,15 @@ class HomeScreen extends StatelessWidget {
     final chapter = Provider.of<BooksNamesProvider>(context).chapterList;
 
     if (chapter.isEmpty) {
+      // Provider.of<BooksNamesProvider>(context).getChapterList();
       return const Scaffold(
         body: Center(
-          child: CircularProgressIndicator.adaptive(),
-        ),
+            child: Column(
+          children: [
+            Text('Cargando...'),
+            CircularProgressIndicator.adaptive(),
+          ],
+        )),
       );
     }
     return Scaffold(
@@ -99,8 +104,7 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: BottomNavigator()
-      
+      bottomNavigationBar: BottomNavigator(),
     );
   }
 }
