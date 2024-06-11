@@ -20,6 +20,11 @@ class DrawerScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      isOldBook ? Colors.blue[200] : Colors.white),
+                
+                ),
                 onPressed: () {
                   Provider.of<BooksNamesProvider>(context, listen: false)
                       .setOldBooks(true);
@@ -31,6 +36,10 @@ class DrawerScreen extends StatelessWidget {
                         fontSize: 16)),
               ),
               TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      isOldBook ? Colors.white : Colors.blue[200]),
+                ),
                 onPressed: () {
                   Provider.of<BooksNamesProvider>(context, listen: false)
                       .setOldBooks(false);

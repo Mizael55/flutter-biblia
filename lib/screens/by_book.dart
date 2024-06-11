@@ -94,6 +94,7 @@ class ByBookScreen extends StatelessWidget {
               ),
             );
           },
-        ));
+        ),
+        bottomNavigationBar: BottomNavigator());
   }
 }
