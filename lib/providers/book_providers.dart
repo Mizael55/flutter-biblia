@@ -5,7 +5,6 @@ class BooksNamesProvider extends ChangeNotifier {
   bool oldBooks = true;
   late int cap;
   final List<Map<String, Object>> _chapterList = [];
-  final List<Map<String, Object>> _byBook = [];
   List<Map<String, Object>> get chapterList => _chapterList;
   // List<Map<String, Object>> get byBook => _byBook;
   // get de cap

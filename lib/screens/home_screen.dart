@@ -1,3 +1,4 @@
+import 'package:biblia/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
@@ -9,10 +10,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final letterSize = Preferences.size;
     final chapter = Provider.of<BooksNamesProvider>(context).chapterList;
 
     if (chapter.isEmpty) {
-      // Provider.of<BooksNamesProvider>(context).getChapterList();
       return const Scaffold(
         body: Center(
             child: Column(
@@ -24,7 +25,6 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
-    
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -74,8 +74,8 @@ class HomeScreen extends StatelessWidget {
             title: data['Verse'] == 1
                 ? Text(
                     'Capitulo: ${data['Chapter']}',
-                    style: const TextStyle(
-                      fontSize: 20.0,
+                    style: TextStyle(
+                      fontSize: letterSize,
                       fontWeight: FontWeight.bold,
                     ),
                   )
@@ -88,15 +88,15 @@ class HomeScreen extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     '${data['Verse']}  ',
-                    style: const TextStyle(
-                      fontSize: 18.0,
+                    style: TextStyle(
+                      fontSize: letterSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Expanded(
                     child: Text(
                       '${data['Text']}',
-                      style: const TextStyle(fontSize: 16.0),
+                      style: TextStyle(fontSize: letterSize),
                     ),
                   ),
                 ],
