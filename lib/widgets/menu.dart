@@ -1,7 +1,5 @@
-import 'package:biblia/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/providers.dart';
 import 'books_names_chapter_number.dart';
 
@@ -23,7 +21,6 @@ class DrawerScreen extends StatelessWidget {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(
                       isOldBook ? Colors.blue[200] : Colors.white),
-                
                 ),
                 onPressed: () {
                   Provider.of<BooksNamesProvider>(context, listen: false)
@@ -94,10 +91,7 @@ class DrawerScreen extends StatelessWidget {
                                       ? booksNamesOld[index]['names'].toString()
                                       : bookNamesNew[index]['names'].toString(),
                                 );
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return const ByBookScreen();
-                                }));
+                                Navigator.pop(context);
                               },
                               child: Container(
                                 margin: const EdgeInsets.all(5),

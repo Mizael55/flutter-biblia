@@ -7,7 +7,7 @@ class BooksNamesProvider extends ChangeNotifier {
   final List<Map<String, Object>> _chapterList = [];
   final List<Map<String, Object>> _byBook = [];
   List<Map<String, Object>> get chapterList => _chapterList;
-  List<Map<String, Object>> get byBook => _byBook;
+  // List<Map<String, Object>> get byBook => _byBook;
   // get de cap
   int getCap() {
     return cap;
@@ -79,8 +79,8 @@ class BooksNamesProvider extends ChangeNotifier {
       String name) async {
     final List<Map<String, Object>> chapterList =
         await Book().fetchSpecificChapter(name, cap);
-    _byBook.clear();
-    _byBook.addAll(chapterList);
+    _chapterList.clear();
+    _chapterList.addAll(chapterList);
     notifyListeners();
     return chapterList;
   }

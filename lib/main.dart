@@ -14,7 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => BooksNamesProvider()),
+        ChangeNotifierProvider(
+          create: (context) => BooksNamesProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ScreenRoute(),
+        ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -30,21 +35,17 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<BooksNamesProvider>(context).getChapterList();
-    return const HomeScreen();
-  }
-}
+    final index = Provider.of<ScreenRoute>(context).currentIndex;
 
-
-class Screen extends StatelessWidget {
-   
-  const Screen({Key? key}) : super(key: key);
-  
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-         child: Text('Screen'),
-      ),
-    );
+    switch (index) {
+      case 0:
+        return const HomeScreen();
+      case 1:
+        return const GlobalSearchScreen();
+      case 2:
+        return const SettingsScreen();
+      default:
+        return const HomeScreen();
+    }
   }
 }

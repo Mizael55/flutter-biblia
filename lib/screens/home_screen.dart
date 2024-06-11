@@ -23,6 +23,8 @@ class HomeScreen extends StatelessWidget {
         )),
       );
     }
+
+    
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -50,7 +52,6 @@ class HomeScreen extends StatelessWidget {
                           )));
             },
           ),
-          // agrega otro icono tipo himnario a la derecha del appbar
           IconButton(
             icon: const Icon(Icons.book),
             onPressed: () {

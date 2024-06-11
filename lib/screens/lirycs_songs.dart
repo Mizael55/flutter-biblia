@@ -1,7 +1,6 @@
+import 'package:biblia/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
-
-import '../widgets/widgets.dart';
 
 class LiricsSongsScreen extends StatelessWidget {
   final bool coro;
@@ -12,14 +11,22 @@ class LiricsSongsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-              icon: const Icon(Icons.menu, color: Colors.black),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              }),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const App(),
+              ),
+            );
+          },
         ),
-        title: const Text('Canciones', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
+        title: Text(coro ? 'Coros - Harmonia' : 'Himnario',
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
             icon: coro ? const Icon(Icons.book) : const Icon(Icons.music_note),
@@ -36,7 +43,6 @@ class LiricsSongsScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer: const DrawerScreen(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -63,7 +69,6 @@ class LiricsSongsScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigator()
     );
   }
 }

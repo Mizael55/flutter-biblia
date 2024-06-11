@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/providers.dart';
 
-import '../screens/screens.dart';
-
-class BottomNavigator extends StatefulWidget {
+class BottomNavigator extends StatelessWidget {
   const BottomNavigator({
     super.key,
   });
-
-  @override
-  State<BottomNavigator> createState() => _BottomNavigatorState();
-}
-
-class _BottomNavigatorState extends State<BottomNavigator> {
-
-  // int _currentIndex = 0; // Agrega esta línea
-
-  // final _pages = [HomeScreen(), ByBookScreen()]; // Agrega las páginas aquí
-
   @override
   Widget build(BuildContext context) {
+     final index = Provider.of<ScreenRoute>(context).currentIndex;
     return  BottomNavigationBar(
         backgroundColor: Colors.indigo[100],
         items: const <BottomNavigationBarItem>[
@@ -35,6 +25,14 @@ class _BottomNavigatorState extends State<BottomNavigator> {
             label: 'Ajustes',
           ),
         ],
+        currentIndex: index,
+        selectedItemColor: Colors.indigo,
+        unselectedItemColor: Colors.black,
+        unselectedFontSize: 12.0,
+        selectedFontSize: 15.0,
+        onTap: (int index) {
+          Provider.of<ScreenRoute>(context, listen: false).setIndex(index);
+        },
     );
   }
 }
