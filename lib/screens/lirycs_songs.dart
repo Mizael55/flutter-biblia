@@ -1,4 +1,4 @@
-import 'package:biblia/main.dart';
+import 'package:biblia/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
@@ -17,7 +17,7 @@ class LiricsSongsScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const App(),
+                builder: (context) => const SelectedRoutes(),
               ),
             );
           },
@@ -43,29 +43,26 @@ class LiricsSongsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Container(
-            height: 700, // specify the height
-            child: PDF(
-              enableSwipe: true,
-              swipeHorizontal: false,
-              autoSpacing: false,
-              pageFling: false,
-              defaultPage: 1,
-              onError: (error) {
-                print(error.toString());
-              },
-              onPageError: (page, error) {
-                print('$page: ${error.toString()}');
-              },
-              onPageChanged: (int? page, int? total) {
-                print('page change: $page/$total');
-              },
-            ).fromAsset(
-              coro ? 'assets/coro.pdf' : 'assets/himnario.pdf',
-            ),
+      body: SingleChildScrollView(
+        child: Container(
+          height: 700, // specify the height
+          child: PDF(
+            enableSwipe: true,
+            swipeHorizontal: false,
+            autoSpacing: false,
+            pageFling: false,
+            defaultPage: 1,
+            onError: (error) {
+              print(error.toString());
+            },
+            onPageError: (page, error) {
+              print('$page: ${error.toString()}');
+            },
+            onPageChanged: (int? page, int? total) {
+              print('page change: $page/$total');
+            },
+          ).fromAsset(
+            coro ? 'assets/coro.pdf' : 'assets/himnario.pdf',
           ),
         ),
       ),

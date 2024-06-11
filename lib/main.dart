@@ -1,7 +1,7 @@
+import 'package:biblia/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/providers.dart';
-import 'screens/screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,31 +21,12 @@ class MyApp extends StatelessWidget {
           create: (context) => ScreenRoute(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: App(),
+        home: SelectedRoutes(),
       ),
     );
   }
 }
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    Provider.of<BooksNamesProvider>(context).getChapterList();
-    final index = Provider.of<ScreenRoute>(context).currentIndex;
-
-    switch (index) {
-      case 0:
-        return const HomeScreen();
-      case 1:
-        return const GlobalSearchScreen();
-      case 2:
-        return const SettingsScreen();
-      default:
-        return const HomeScreen();
-    }
-  }
-}
