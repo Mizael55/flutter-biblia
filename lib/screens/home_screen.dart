@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
 import '../widgets/widgets.dart';
+import 'screens.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text(
           'Versículo del día',
@@ -74,6 +76,17 @@ class HomeScreen extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LiricsSongsScreen(
+                            coro: true,
+                          )));
+        },
+        child: const Icon(Icons.music_note_outlined),
       ),
       bottomNavigationBar: BottomNavigator(),
     );
