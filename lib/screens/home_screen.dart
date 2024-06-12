@@ -1,126 +1,75 @@
-import 'package:biblia/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/providers.dart';
-import '../widgets/widgets.dart';
-import 'screens.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../providers/providers.dart';
+import '../share_preferences/preferences.dart';
+import '../widgets/widgets.dart';
+
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
   Widget build(BuildContext context) {
-    final ScrollController _scrollController = ScrollController();
-
     final letterSize = Preferences.getSize;
-    final chapter = Provider.of<BooksNamesProvider>(context).chapterList;
-    final theme = Provider.of<ThemeProvider>(context).currentTheme;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.jumpTo(_scrollController.position.minScrollExtent);
-      }
-    });
-
-
-    if (chapter.isEmpty) {
-      Provider.of<BooksNamesProvider>(context).getChapterList();
+    final verse = Provider.of<BookProviders>(context).verseOfTheDay;
+    if (verse.isEmpty) {
+      Provider.of<BookProviders>(context).fetchVerseOfTheDay();
       return const Scaffold(
         body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Cargando...'),
-            CircularProgressIndicator(backgroundColor: Colors.indigo),
-          ],
-        )),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Cargando...'),
+              CircularProgressIndicator(backgroundColor: Colors.indigo),
+            ],
+          ),
+        ),
       );
     }
-
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              }),
-        ),
         centerTitle: true,
-        title: Text('${chapter[0]['Book']}',
-            style: TextStyle(
-                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
-                fontSize: 22.0,
-                fontWeight: FontWeight.bold)),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.music_note),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LiricsSongsScreen(
-                            coro: true,
-                          )));
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.book),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LiricsSongsScreen(
-                            coro: false,
-                          )));
-            },
-          ),
-        ],
+        title: const Text(
+          'Versículo del día',
+          style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+        ),
       ),
-      drawer: const DrawerScreen(),
       body: ListView.builder(
-        controller: _scrollController,
-        itemCount: chapter.length,
+        itemCount: verse.length,
         itemBuilder: (context, index) {
-          final data = chapter[index];
-          return ListTile(
-            title: data['Verse'] == 1
-                ? Text(
-                    'Capitulo: ${data['Chapter']}',
-                    style: TextStyle(
-                      fontSize: letterSize,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                : null,
-            subtitle: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Alinea los widgets al inicio
-                children: <Widget>[
-                  Text(
-                    '${data['Verse']}  ',
-                    style: TextStyle(
-                      fontSize: letterSize,
-                      fontWeight: FontWeight.bold,
-                    ),
+          final data = verse[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            child: Card(
+              child: ListTile(
+                title: Text(
+                  '${data['Book']}: ${data['Chapter']}',
+                  style: TextStyle(
+                    fontSize: letterSize,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Expanded(
-                    child: Text(
-                      '${data['Text']}',
-                      style: TextStyle(fontSize: letterSize),
-                    ),
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '${data['Verse']}  ',
+                        style: TextStyle(
+                          fontSize: letterSize,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${data['Text']}',
+                          style: TextStyle(fontSize: letterSize),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           );

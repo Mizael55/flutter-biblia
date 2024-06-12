@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/services.dart';
 
 class Book {
@@ -33,4 +34,18 @@ class Book {
 
     return chapterData.cast<Map<dynamic, dynamic>>();
   }
+
+  fetchVerseOfTheDay() async {
+  final response = await rootBundle.loadString('assets/spanish.json');
+  final data = json.decode(response) as List;
+
+  // Use the current date as seed for the random number generator.
+  final seed = DateTime.now().year * 10000 + DateTime.now().month * 100 + DateTime.now().day;
+  final random = Random(seed);
+
+  // Select a random verse.
+  final verse = data[random.nextInt(data.length)];
+
+  return verse;
+}
 }

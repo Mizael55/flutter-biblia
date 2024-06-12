@@ -8,7 +8,7 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isOldBook = Provider.of<BooksNamesProvider>(context).oldBooks;
+    final isOldBook = Provider.of<BookProviders>(context).oldBooks;
     return Drawer(
         child: Column(
       children: [
@@ -23,7 +23,7 @@ class DrawerScreen extends StatelessWidget {
                       isOldBook ? Colors.indigo[200] : Colors.white),
                 ),
                 onPressed: () {
-                  Provider.of<BooksNamesProvider>(context, listen: false)
+                  Provider.of<BookProviders>(context, listen: false)
                       .setOldBooks(true);
                 },
                 child: Text('Antiguo T',
@@ -38,7 +38,7 @@ class DrawerScreen extends StatelessWidget {
                       isOldBook ? Colors.white : Colors.indigo[200]),
                 ),
                 onPressed: () {
-                  Provider.of<BooksNamesProvider>(context, listen: false)
+                  Provider.of<BookProviders>(context, listen: false)
                       .setOldBooks(false);
                 },
                 child: Text('Nuevo T',
@@ -81,10 +81,10 @@ class DrawerScreen extends StatelessWidget {
                           itemBuilder: (context, gridIndex) {
                             return GestureDetector(
                               onTap: () {
-                                Provider.of<BooksNamesProvider>(context,
+                                Provider.of<BookProviders>(context,
                                         listen: false)
                                     .setCap(gridIndex + 1);
-                                Provider.of<BooksNamesProvider>(context,
+                                Provider.of<BookProviders>(context,
                                         listen: false)
                                     .fetchSpecificChapter(
                                   isOldBook

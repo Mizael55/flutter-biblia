@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => BooksNamesProvider(),
+          create: (context) => BookProviders(),
         ),
         ChangeNotifierProvider(create: (context) => ScreenRoute()),
         ChangeNotifierProvider(

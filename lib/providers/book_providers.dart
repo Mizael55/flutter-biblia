@@ -1,23 +1,27 @@
 import 'package:biblia/services/book.dart';
 import 'package:flutter/material.dart';
 
-class BooksNamesProvider extends ChangeNotifier {
+class BookProviders extends ChangeNotifier {
   bool oldBooks = true;
   late int cap;
   final List<Map<dynamic, dynamic>> _chapterList = [];
+  final List<Map<dynamic, dynamic>> _verseOfTheDay = [];
+  List<Map<dynamic, dynamic>> get verseOfTheDay => _verseOfTheDay;
   List<Map<dynamic, dynamic>> get chapterList => _chapterList;
 
   int getCap() {
     return cap;
   }
+
   bool getOldBooks() {
     return oldBooks;
   }
+
   void setCap(int cap) {
     this.cap = cap;
   }
 
-  void setOldBooks( bool oldBooks) {
+  void setOldBooks(bool oldBooks) {
     this.oldBooks = oldBooks;
     notifyListeners();
   }
@@ -30,14 +34,20 @@ class BooksNamesProvider extends ChangeNotifier {
     return chapterList;
   }
 
-  Future<List<Map<dynamic, dynamic>>> fetchSpecificChapter(
-      String name) async {
+  Future<List<Map<dynamic, dynamic>>> fetchSpecificChapter(String name) async {
     final List<Map<dynamic, dynamic>> chapterList =
         await Book().fetchSpecificChapter(name, cap);
     _chapterList.clear();
     _chapterList.addAll(chapterList);
-    // print(chapterList);
     notifyListeners();
     return chapterList;
+  }
+
+  Future<List<Map<dynamic, dynamic>>> fetchVerseOfTheDay() async {
+    final verse = await Book().fetchVerseOfTheDay();
+    _verseOfTheDay.clear();
+    _verseOfTheDay.add(verse);
+    notifyListeners();
+    return _verseOfTheDay;
   }
 }
