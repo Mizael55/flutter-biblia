@@ -24,6 +24,7 @@ class BooksNamesProvider extends ChangeNotifier {
 
   Future<List<Map<dynamic, dynamic>>> getChapterList() async {
     final List<Map<dynamic, dynamic>> chapterList = await Book().readJson();
+    // _chapterList.clear();
     _chapterList.addAll(chapterList);
     notifyListeners();
     return chapterList;
@@ -35,6 +36,7 @@ class BooksNamesProvider extends ChangeNotifier {
         await Book().fetchSpecificChapter(name, cap);
     _chapterList.clear();
     _chapterList.addAll(chapterList);
+    // print(chapterList);
     notifyListeners();
     return chapterList;
   }

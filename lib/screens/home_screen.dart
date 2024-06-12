@@ -15,12 +15,14 @@ class HomeScreen extends StatelessWidget {
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
 
     if (chapter.isEmpty) {
+      Provider.of<BooksNamesProvider>(context).getChapterList();
       return const Scaffold(
         body: Center(
             child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Cargando...'),
-            CircularProgressIndicator.adaptive(),
+            CircularProgressIndicator(backgroundColor: Colors.indigo),
           ],
         )),
       );
@@ -30,9 +32,9 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(
-              icon:  Icon(Icons.menu, 
-              color: theme == ThemeData.dark() ? Colors.white : Colors.black,
-
+              icon: Icon(
+                Icons.menu,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
               ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -40,7 +42,7 @@ class HomeScreen extends StatelessWidget {
         ),
         centerTitle: true,
         title: Text('${chapter[0]['Book']}',
-            style:  TextStyle(
+            style: TextStyle(
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black,
                 fontSize: 22.0,
                 fontWeight: FontWeight.bold)),
