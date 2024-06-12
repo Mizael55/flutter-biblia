@@ -5,14 +5,28 @@ import '../providers/providers.dart';
 import '../widgets/widgets.dart';
 import 'screens.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
+    final ScrollController _scrollController = ScrollController();
+
     final letterSize = Preferences.getSize;
     final chapter = Provider.of<BooksNamesProvider>(context).chapterList;
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(_scrollController.position.minScrollExtent);
+      }
+    });
+
 
     if (chapter.isEmpty) {
       Provider.of<BooksNamesProvider>(context).getChapterList();
@@ -73,6 +87,7 @@ class HomeScreen extends StatelessWidget {
       ),
       drawer: const DrawerScreen(),
       body: ListView.builder(
+        controller: _scrollController,
         itemCount: chapter.length,
         itemBuilder: (context, index) {
           final data = chapter[index];
