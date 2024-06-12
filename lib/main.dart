@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'providers/providers.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Preferences.init();
+  await WidgetsFlutterBinding.ensureInitialized();
+  await Preferences.init();
   runApp(const MyApp());
 }
 
@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ScreenRoute()),
         ChangeNotifierProvider(
             create: (context) => LetterSize(
-              size: Preferences.getSize,
-            )),
+                  size: Preferences.getSize,
+                )),
         ChangeNotifierProvider(
             create: (context) =>
                 ThemeProvider(isDarkMode: Preferences.darkMode)),
