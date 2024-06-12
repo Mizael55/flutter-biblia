@@ -19,7 +19,7 @@ class DrawerScreen extends StatelessWidget {
             children: [
               TextButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(
                       isOldBook ? Colors.indigo[200] : Colors.white),
                 ),
                 onPressed: () {
@@ -34,7 +34,7 @@ class DrawerScreen extends StatelessWidget {
               ),
               TextButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(
                       isOldBook ? Colors.white : Colors.indigo[200]),
                 ),
                 onPressed: () {
