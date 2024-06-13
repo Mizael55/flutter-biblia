@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           'Versículo del día',
-          style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView.builder(
@@ -42,9 +42,10 @@ class HomeScreen extends StatelessWidget {
           final data = verse[index];
           return Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
             child: Card(
               child: ListTile(
+                contentPadding: const EdgeInsets.all(15.0),
                 title: Row(
                   children: [
                     Text(
