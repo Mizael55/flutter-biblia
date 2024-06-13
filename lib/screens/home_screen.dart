@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
-
 import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
 import '../widgets/widgets.dart';
@@ -42,42 +41,51 @@ class HomeScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final data = verse[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-            child: GestureDetector(
-              onTap: () {
-              print('hola');
-              Share.share(
-                  '${data['Book']} ${data['Chapter']}:${data['Verse']} ${data['Text']}');
-            },
-              child: Card(
-                child: ListTile(
-                  title: Text(
-                    '${data['Book']}: ${data['Chapter']}',
-                    style: TextStyle(
-                      fontSize: letterSize,
-                      fontWeight: FontWeight.bold,
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            child: Card(
+              child: ListTile(
+                title: Row(
+                  children: [
+                    Text(
+                      '${data['Book']}: ${data['Chapter']}',
+                      style: TextStyle(
+                        fontSize: letterSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          '${data['Verse']}  ',
-                          style: TextStyle(
-                            fontSize: letterSize,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            '${data['Text']}',
-                            style: TextStyle(fontSize: letterSize),
-                          ),
-                        ),
-                      ],
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () async {
+                        await FlutterShare.share(
+                          title: 'Versículo del día',
+                          text:
+                              '${data['Book']} ${data['Chapter']} ${data['Verse']} ${data['Text']}',
+                        );
+                      },
+                      icon: const Icon(Icons.share),
                     ),
+                  ],
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '${data['Verse']}  ',
+                        style: TextStyle(
+                          fontSize: letterSize,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${data['Text']}',
+                          style: TextStyle(fontSize: letterSize),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -88,11 +96,11 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LiricsSongsScreen(
-                            coro: true,
-                          )));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const LiricsSongsScreen(
+                        coro: true,
+                      )));
         },
         child: const Icon(Icons.music_note_outlined),
       ),

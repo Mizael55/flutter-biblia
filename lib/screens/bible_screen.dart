@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
@@ -118,6 +119,16 @@ class _BibleScreenState extends State<BibleScreen> {
                       '${data['Text']}',
                       style: TextStyle(fontSize: letterSize),
                     ),
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      await FlutterShare.share(
+                        title: 'Versículo del día',
+                        text:
+                            '${data['Book']} ${data['Chapter']} ${data['Verse']} ${data['Text']}',
+                      );
+                    },
+                    icon: const Icon(Icons.share, color: Colors.indigo, size: 17.0),
                   ),
                 ],
               ),
