@@ -94,17 +94,6 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.push(
-      //         context,
-      //         MaterialPageRoute(
-      //             builder: (context) => const LiricsSongsScreen(
-      //                   coro: true,
-      //                 )));
-      //   },
-      //   child: const Icon(Icons.music_note_outlined),
-      // ),
       bottomNavigationBar: BottomNavigator(),
     );
   }

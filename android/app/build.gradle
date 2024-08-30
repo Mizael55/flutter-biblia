@@ -54,7 +54,7 @@ if (flutterVersionName == null) {
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode 3
-        versionName '1.0'
+        versionName '2.1'
     }
 
     signingConfigs {
