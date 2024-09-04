@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
 import '../widgets/widgets.dart';
-import 'screens.dart';
 
 class BibleScreen extends StatefulWidget {
   const BibleScreen({Key? key}) : super(key: key);
@@ -128,7 +127,8 @@ class _BibleScreenState extends State<BibleScreen> {
                             '${data['Book']} ${data['Chapter']} ${data['Verse']} ${data['Text']}',
                       );
                     },
-                    icon: const Icon(Icons.share, color: Colors.indigo, size: 17.0),
+                    icon: const Icon(Icons.share,
+                        color: Colors.indigo, size: 17.0),
                   ),
                 ],
               ),

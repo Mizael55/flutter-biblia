@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
 import '../widgets/widgets.dart';
-import 'screens.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,7 +14,19 @@ class HomeScreen extends StatelessWidget {
     final verse = Provider.of<BookProviders>(context).verseOfTheDay;
     if (verse.isEmpty) {
       Provider.of<BookProviders>(context).fetchVerseOfTheDay();
-      return const Scaffold(
+      return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 5,
+          backgroundColor: Colors.indigo,
+          centerTitle: true,
+          title: const Text(
+            'Versículo del día',
+            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+        drawer: const DrawerMenu(),
+        // drawer: const DrawerScreen(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -30,12 +41,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        elevation: 5,
+        backgroundColor: Colors.indigo,
         centerTitle: true,
         title: const Text(
           'Versículo del día',
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
       ),
+      // drawer: const DrawerMenu(),
+      drawer: const DrawerScreen(),
       body: ListView.builder(
         itemCount: verse.length,
         itemBuilder: (context, index) {
