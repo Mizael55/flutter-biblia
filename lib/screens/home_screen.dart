@@ -12,21 +12,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final letterSize = Preferences.getSize;
     final verse = Provider.of<BookProviders>(context).verseOfTheDay;
+    final theme = Provider.of<ThemeProvider>(context).currentTheme;
+
     if (verse.isEmpty) {
       Provider.of<BookProviders>(context).fetchVerseOfTheDay();
       return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 5,
-          backgroundColor: Colors.indigo,
-          centerTitle: true,
-          title: const Text(
-            'Versículo del día',
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          ),
-        ),
-        drawer: const DrawerMenu(),
-        // drawer: const DrawerScreen(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -40,17 +30,25 @@ class HomeScreen extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 5,
-        backgroundColor: Colors.indigo,
-        centerTitle: true,
-        title: const Text(
-          'Versículo del día',
-          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+        leading: Builder(
+          builder: (context) => IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              }),
         ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: Text('Versículo del día',
+            style: TextStyle(
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold)),
       ),
-      // drawer: const DrawerMenu(),
-      drawer: const DrawerScreen(),
+      drawer: const DrawerMenu(),
       body: ListView.builder(
         itemCount: verse.length,
         itemBuilder: (context, index) {
