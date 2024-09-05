@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
+import '../screens/screens.dart';
+import '../utils/utils.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -28,15 +30,15 @@ class DrawerMenu extends StatelessWidget {
                 child: Image.asset('assets/icon/icon.png',
                     width: 100, height: 100),
               )),
-          ListTile(
-            leading: Icon(Icons.home,
-                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-            trailing: Icon(Icons.arrow_forward_ios,
-                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-            title: const Text('Inicio'),
-            onTap: () {},
-          ),
-          Divider(),
+          // ListTile(
+          //   leading: Icon(Icons.home,
+          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+          //   trailing: Icon(Icons.arrow_forward_ios,
+          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+          //   title: const Text('Inicio'),
+          //   onTap: () {},
+          // ),
+          // Divider(),
           ListTile(
             leading: Icon(Icons.book,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
@@ -52,7 +54,11 @@ class DrawerMenu extends StatelessWidget {
             trailing: Icon(Icons.arrow_forward_ios,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Coros'),
-            onTap: () {},
+            onTap: () {
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CorosScreen()));
+            },
           ),
           Divider(),
           ListTile(
@@ -61,7 +67,13 @@ class DrawerMenu extends StatelessWidget {
             trailing: Icon(Icons.arrow_forward_ios,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Ajustes'),
-            onTap: () {},
+            onTap: () {
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(2);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectedRoutes()));
+            },
           ),
           Divider(),
         ],
