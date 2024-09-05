@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/providers.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context).currentTheme;
     return Drawer(
+// si el tema no es dark entonces el color de fondo es blanco, que solo evalue si el tema es darck que pnga el por defecto
+      backgroundColor:
+          theme == ThemeData.dark() ? theme.primaryColor : Colors.white,
       child: ListView(
         children: <Widget>[
           DrawerHeader(
@@ -14,36 +20,46 @@ class DrawerMenu extends StatelessWidget {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.white,
+                  // has que el contenedor sea circular
+                  shape: BoxShape.circle,
+                  // borderRadius: BorderRadius.circular(50),
+                  // color: Colors.white,
                 ),
                 child: Image.asset('assets/icon/icon.png',
                     width: 100, height: 100),
               )),
           ListTile(
-            leading: const Icon(Icons.home, color: Colors.white),
-            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white),
+            leading: Icon(Icons.home,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Inicio'),
             onTap: () {},
           ),
           Divider(),
           ListTile(
-            leading: const Icon(Icons.book, color: Colors.white),
-            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white),
+            leading: Icon(Icons.book,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Himnos'),
             onTap: () {},
           ),
           Divider(),
           ListTile(
-            leading: const Icon(Icons.music_note, color: Colors.white),
-            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white),
+            leading: Icon(Icons.music_note,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Coros'),
             onTap: () {},
           ),
           Divider(),
           ListTile(
-            leading: const Icon(Icons.settings, color: Colors.white),
-            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white),
+            leading: Icon(Icons.settings,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Ajustes'),
             onTap: () {},
           ),
