@@ -13,13 +13,25 @@ class SettingsScreen extends StatelessWidget {
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
     return Scaffold(
       appBar: AppBar(
+        leading: Builder(
+          builder: (context) => IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              }),
+        ),
         automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Text('Configuración',
             style: TextStyle(
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black,
-                fontSize: 20,
+                fontSize: 20.0,
                 fontWeight: FontWeight.bold)),
       ),
+      drawer: const DrawerMenu(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

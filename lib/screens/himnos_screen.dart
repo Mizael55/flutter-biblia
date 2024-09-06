@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-class CorosScreen extends StatefulWidget {
+class HimnosScreen extends StatefulWidget {
   @override
-  State<CorosScreen> createState() => _CorosScreenState();
+  State<HimnosScreen> createState() => _HimnosScreenState();
 }
 
-class _CorosScreenState extends State<CorosScreen> {
+class _HimnosScreenState extends State<HimnosScreen> {
   final PdfViewerController _pdfViewerController = PdfViewerController();
   final TextEditingController _searchController = TextEditingController();
   Future<void>? _loadPdfFuture;
@@ -42,7 +42,7 @@ class _CorosScreenState extends State<CorosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Coros'),
+        title: const Text('Himnos'),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: Padding(
@@ -82,7 +82,7 @@ class _CorosScreenState extends State<CorosScreen> {
             return Center(child: Text('Error al cargar el PDF'));
           } else {
             return SfPdfViewer.asset(
-              'assets/coro.pdf',
+              'assets/himnario.pdf',
               controller: _pdfViewerController,
               initialPageNumber: 2,
               canShowPaginationDialog: true,

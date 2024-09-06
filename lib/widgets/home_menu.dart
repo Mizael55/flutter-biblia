@@ -45,7 +45,11 @@ class DrawerMenu extends StatelessWidget {
             trailing: Icon(Icons.arrow_forward_ios,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Himnos'),
-            onTap: () {},
+            onTap: () {
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HimnosScreen()));
+            },
           ),
           Divider(),
           ListTile(
@@ -68,11 +72,26 @@ class DrawerMenu extends StatelessWidget {
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Directorio'),
             onTap: () {
-              // Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => CorosScreen()));
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DirectorioScreen()));
             },
           ),
+          // Divider(),
+          // ListTile(
+          //   leading: Icon(Icons.search,
+          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+          //   trailing: Icon(Icons.arrow_forward_ios,
+          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+          //   title: const Text('Buscar'),
+          //   onTap: () {
+          //     Provider.of<ScreenRoute>(context, listen: false).setIndex(2);
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //             builder: (context) => SearchScreen()));
+          //   },
+          // ),
           Divider(),
           ListTile(
             leading: Icon(Icons.settings,

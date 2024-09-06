@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-class CorosScreen extends StatefulWidget {
+class DirectorioScreen extends StatefulWidget {
   @override
-  State<CorosScreen> createState() => _CorosScreenState();
+  State<DirectorioScreen> createState() => _DirectorioScreenState();
 }
 
-class _CorosScreenState extends State<CorosScreen> {
+class _DirectorioScreenState extends State<DirectorioScreen> {
   final PdfViewerController _pdfViewerController = PdfViewerController();
   final TextEditingController _searchController = TextEditingController();
-  Future<void>? _loadPdfFuture;
+  String searchQuery = '';
 
   @override
   void initState() {
     super.initState();
-    _loadPdfFuture = _loadPdf();
     _searchController.addListener(() {
       setState(() {
-        // No need to update searchQuery here, as we handle it directly in onChanged and onSubmitted
+        searchQuery = _searchController.text.toLowerCase();
       });
-      if (_searchController.text.isNotEmpty) {
-        _pdfViewerController.searchText(_searchController.text.toLowerCase());
+      if (searchQuery.isNotEmpty) {
+        _pdfViewerController.searchText(searchQuery);
       } else {
         _pdfViewerController.clearSelection();
       }
     });
-  }
-
-  Future<void> _loadPdf() async {
-    // Simulate a delay to load the PDF
-    await Future.delayed(Duration(seconds: 2));
   }
 
   @override
@@ -42,7 +36,7 @@ class _CorosScreenState extends State<CorosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Coros'),
+        title: const Text('Direcciones y Teléfonos'),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: Padding(
@@ -73,22 +67,11 @@ class _CorosScreenState extends State<CorosScreen> {
           ),
         ),
       ),
-      body: FutureBuilder<void>(
-        future: _loadPdfFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error al cargar el PDF'));
-          } else {
-            return SfPdfViewer.asset(
-              'assets/coro.pdf',
-              controller: _pdfViewerController,
-              initialPageNumber: 2,
-              canShowPaginationDialog: true,
-            );
-          }
-        },
+      body: SfPdfViewer.asset(
+        'assets/directorio.pdf',
+        controller: _pdfViewerController,
+        initialPageNumber: 2,
+        canShowPaginationDialog: true,
       ),
     );
   }

@@ -5,9 +5,11 @@ class BookProviders extends ChangeNotifier {
   bool oldBooks = true;
   late int cap;
   final List<Map<dynamic, dynamic>> _chapterList = [];
+  // final List<dynamic> _fullBible = [];
   final List<Map<dynamic, dynamic>> _verseOfTheDay = [];
   List<Map<dynamic, dynamic>> get verseOfTheDay => _verseOfTheDay;
   List<Map<dynamic, dynamic>> get chapterList => _chapterList;
+  // List<dynamic> get fullBible => _fullBible;
 
   int getCap() {
     return cap;
@@ -33,6 +35,18 @@ class BookProviders extends ChangeNotifier {
     notifyListeners();
     return chapterList;
   }
+
+  // Future<List<dynamic>> loadAllTheTextAreIgualToParameter(String text) async {
+  //   final List<dynamic> fullBible = await Book().loadAllTheTextAreIgualToParameter(text);
+  //   // _chapterList.clear();
+  //   if (fullBible.isEmpty) {
+  //     _fullBible.clear();
+  //     return fullBible;
+  //   }
+  //   _fullBible.addAll(fullBible);
+  //   notifyListeners();
+  //   return fullBible;
+  // }
 
   Future<List<Map<dynamic, dynamic>>> fetchSpecificChapter(String name) async {
     final List<Map<dynamic, dynamic>> chapterList =
