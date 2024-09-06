@@ -75,7 +75,6 @@ flutter:
     - assets/directorio.pdf
     - assets/icon/icon.png
     - assets/spanish.json
-    - assets/coros.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
