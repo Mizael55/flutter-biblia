@@ -59,30 +59,6 @@ class _BibleScreenState extends State<BibleScreen> {
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black,
                 fontSize: 22.0,
                 fontWeight: FontWeight.bold)),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: const Icon(Icons.music_note),
-        //     onPressed: () {
-        //       Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //               builder: (context) => const LiricsSongsScreen(
-        //                     coro: true,
-        //                   )));
-        //     },
-        //   ),
-        //   IconButton(
-        //     icon: const Icon(Icons.book),
-        //     onPressed: () {
-        //       Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //               builder: (context) => const LiricsSongsScreen(
-        //                     coro: false,
-        //                   )));
-        //     },
-        //   ),
-        // ],
       ),
       drawer: const DrawerScreen(),
       body: ListView.builder(

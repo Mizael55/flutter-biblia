@@ -2,7 +2,14 @@ import 'package:biblia/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CorosScreen extends StatelessWidget {
+class CorosScreen extends StatefulWidget {
+  @override
+  _CorosScreenState createState() => _CorosScreenState();
+}
+
+class _CorosScreenState extends State<CorosScreen> {
+  String searchQuery = '';
+
   @override
   Widget build(BuildContext context) {
     final coros = Provider.of<CorosProvider>(context).coros;
@@ -20,14 +27,43 @@ class CorosScreen extends StatelessWidget {
         )),
       );
     }
+
+    final filteredCoros = coros.where((coro) {
+      final titulo = coro['titulo'].toLowerCase();
+      final autor = coro['autor']?.toLowerCase() ?? '';
+      final query = searchQuery.toLowerCase();
+      return titulo.contains(query) || autor.contains(query);
+    }).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Coros'),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: Padding(
+            padding:
+                const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 10.0, top: 10.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Buscar...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                prefixIcon: Icon(Icons.search),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value;
+                });
+              },
+            ),
+          ),
+        ),
       ),
       body: ListView.builder(
-        itemCount: coros.length,
+        itemCount: filteredCoros.length,
         itemBuilder: (context, index) {
-          final data = coros[index];
+          final data = filteredCoros[index];
           return ListTile(
             title: ExpansionTile(
               title: Text(
