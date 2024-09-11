@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:biblia/share_preferences/preferences.dart';
 import 'package:biblia/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,9 @@ import 'providers/providers.dart';
 
 void main() async {
   await WidgetsFlutterBinding.ensureInitialized();
+  await Admob.initialize();
   await Preferences.init();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -12,6 +12,10 @@ package="com.misaellsoler.biblia">
         android:label="Biblia"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7568006196201830~8477081466"/>
+            <!-- prueba ca-app-pub-3940256099942544~3347511713 -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -11,7 +11,6 @@ class DrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
     return Drawer(
-// si el tema no es dark entonces el color de fondo es blanco, que solo evalue si el tema es darck que pnga el por defecto
       backgroundColor:
           theme == ThemeData.dark() ? theme.primaryColor : Colors.white,
       child: ListView(
@@ -46,6 +45,7 @@ class DrawerMenu extends StatelessWidget {
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Himnos'),
             onTap: () {
+              Navigator.pop(context);
               Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => HimnosScreen()));
@@ -59,6 +59,7 @@ class DrawerMenu extends StatelessWidget {
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Coros'),
             onTap: () {
+              Navigator.pop(context);
               Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CorosScreen()));
@@ -72,6 +73,7 @@ class DrawerMenu extends StatelessWidget {
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Directorio'),
             onTap: () {
+              Navigator.pop(context);
               Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DirectorioScreen()));
@@ -100,6 +102,7 @@ class DrawerMenu extends StatelessWidget {
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             title: const Text('Ajustes'),
             onTap: () {
+              Navigator.pop(context);
               Provider.of<ScreenRoute>(context, listen: false).setIndex(2);
               Navigator.push(
                   context,

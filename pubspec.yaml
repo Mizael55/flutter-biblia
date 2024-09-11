@@ -40,6 +40,7 @@ dependencies:
   shared_preferences: ^2.2.3
   flutter_share: ^2.0.0
   syncfusion_flutter_pdfviewer: ^26.2.13
+  admob_flutter: ^3.0.0
 
 dev_dependencies:
   flutter_test:

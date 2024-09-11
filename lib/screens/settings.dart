@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:biblia/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final size = Provider.of<LetterSize>(context).getSize;
+    final size = Provider.of<LetterSize>(context).getSize;
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
     return Scaffold(
       appBar: AppBar(
@@ -61,22 +62,21 @@ class SettingsScreen extends StatelessWidget {
                 Text('Temas',
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-               Switch.adaptive(
-                activeColor: Colors.indigo,
-                value: Preferences.darkMode,
-                onChanged: (value) {
-                  if (value) {
-                    Provider.of<ThemeProvider>(context, listen: false)
-                        .setDarkMode();
-                    Preferences.darkMode = true;
-                  } else {
-                    Provider.of<ThemeProvider>(context, listen: false)
-                        .setLightMode();
-                    Preferences.darkMode = false;
-                  }
-                },
-               ),
-                
+                Switch.adaptive(
+                  activeColor: Colors.indigo,
+                  value: Preferences.darkMode,
+                  onChanged: (value) {
+                    if (value) {
+                      Provider.of<ThemeProvider>(context, listen: false)
+                          .setDarkMode();
+                      Preferences.darkMode = true;
+                    } else {
+                      Provider.of<ThemeProvider>(context, listen: false)
+                          .setLightMode();
+                      Preferences.darkMode = false;
+                    }
+                  },
+                ),
               ],
             ),
           ),
@@ -116,6 +116,24 @@ class SettingsScreen extends StatelessWidget {
                 Provider.of<LetterSize>(context, listen: false).setSize(value);
                 Preferences.size = value;
               },
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 50),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
+            child: Container(
+              constraints: BoxConstraints(
+                maxHeight: 100, // Ajusta este valor según sea necesario
+              ),
+              child: AdmobBanner(
+                adUnitId: "ca-app-pub-7568006196201830/2419923083",
+                adSize: AdmobBannerSize.FULL_BANNER,
+              ),
             ),
           ),
         ],
