@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           interstitialAd.show();
         } else if (event == AdmobAdEvent.closed) {
           // Añadir un retraso antes de cargar el siguiente anuncio
-          Future.delayed(Duration(seconds: 50), () {
+          Future.delayed(Duration(seconds: 60), () {
             interstitialAd.load();
           });
           // Actualizar el versículo del día

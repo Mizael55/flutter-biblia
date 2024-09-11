@@ -121,19 +121,14 @@ class SettingsScreen extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 50),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 10,
-              right: 10,
+          Container(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            constraints: BoxConstraints(
+              maxHeight: 100, // Ajusta este valor según sea necesario
             ),
-            child: Container(
-              constraints: BoxConstraints(
-                maxHeight: 100, // Ajusta este valor según sea necesario
-              ),
-              child: AdmobBanner(
-                adUnitId: "ca-app-pub-7568006196201830/2419923083",
-                adSize: AdmobBannerSize.FULL_BANNER,
-              ),
+            child: AdmobBanner(
+              adUnitId: "ca-app-pub-7568006196201830/2419923083",
+              adSize: AdmobBannerSize.FULL_BANNER
             ),
           ),
         ],
