@@ -128,8 +128,8 @@ class _BibleScreenState extends State<BibleScreen> {
                     },
                     icon: Icon(
                       Icons.favorite_rounded,
-                      color: favorite.favoriteList.any(
-                              (element) => element['text'] == data['Text'])
+                      color: favorite.favoriteList
+                              .any((element) => element['text'] == data['Text'])
                           ? Colors.red
                           : Colors.grey,
                     ),

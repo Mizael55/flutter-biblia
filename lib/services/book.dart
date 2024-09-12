@@ -18,20 +18,6 @@ class Book {
     return r.cast<Map<String, dynamic>>();
   }
 
-  // add value favorite: true to json file
-  // addFavorite(String book, int chapter, int verse) async {
-  //   final response = await rootBundle.loadString('assets/spanish.json');
-  //   final data = json.decode(response) as List;
-
-  //   final bookData = data
-  //       .where((element) => element['Book'] == book && element['Chapter'] == chapter && element['Verse'] == verse)
-  //       .toList();
-
-  //   bookData[0]['favorite'] = true;
-
-  //   return bookData.cast<Map<String, dynamic>>();
-  // }
-
   fetchSpecificChapter(String name, int cap) async {
     final response = await rootBundle.loadString('assets/spanish.json');
     final data = json.decode(response) as List;

@@ -36,12 +36,6 @@ class BookProviders extends ChangeNotifier {
     return chapterList;
   }
 
-  // addFavorite(String book, int chapter, int verse) async {
-  //   await Book().addFavorite(book, chapter, verse);
-  //   _chapterList.clear();
-  //   await getChapterList();
-  // }
-
   Future<List<Map<dynamic, dynamic>>> fetchSpecificChapter(String name) async {
     final List<Map<dynamic, dynamic>> chapterList =
         await Book().fetchSpecificChapter(name, cap);
