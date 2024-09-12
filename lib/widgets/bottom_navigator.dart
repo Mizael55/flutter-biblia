@@ -8,35 +8,47 @@ class BottomNavigator extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-     final index = Provider.of<ScreenRoute>(context).currentIndex;
-    return  BottomNavigationBar(
-        backgroundColor: Colors.indigo[100],
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.black),
-            label: 'Inicio',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book, color: Colors.black),
-            label: 'Biblia',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite, color: Colors.black),
-            label: 'Favoritos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, color: Colors.black),
-            label: 'Ajustes',
-          ),
-        ],
-        currentIndex: index,
-        selectedItemColor: Colors.indigo,
-        unselectedItemColor: Colors.black,
-        unselectedFontSize: 12.0,
-        selectedFontSize: 15.0,
-        onTap: (int index) {
-          Provider.of<ScreenRoute>(context, listen: false).setIndex(index);
-        },
+    final theme = Provider.of<ThemeProvider>(context);
+    final index = Provider.of<ScreenRoute>(context).currentIndex;
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home,
+              color: theme.currentTheme == ThemeData.dark()
+                  ? Colors.white
+                  : Colors.black),
+          label: 'Inicio',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu_book_rounded,
+              color: theme.currentTheme == ThemeData.dark()
+                  ? Colors.white
+                  : Colors.black),
+          label: 'Biblia',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite,
+              color: theme.currentTheme == ThemeData.dark()
+                  ? Colors.white
+                  : Colors.black),
+          label: 'Favoritos',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings,
+              color: theme.currentTheme == ThemeData.dark()
+                  ? Colors.white
+                  : Colors.black),
+          label: 'Ajustes',
+        ),
+      ],
+      currentIndex: index,
+      selectedItemColor: Colors.indigo,
+      unselectedItemColor: Colors.black,
+      unselectedFontSize: 12.0,
+      selectedFontSize: 15.0,
+      onTap: (int index) {
+        Provider.of<ScreenRoute>(context, listen: false).setIndex(index);
+      },
     );
   }
 }

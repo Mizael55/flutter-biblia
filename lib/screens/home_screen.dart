@@ -105,10 +105,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const Spacer(),
                         IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.favorite_border),
-                        ),
-                        IconButton(
                           onPressed: () async {
                             await FlutterShare.share(
                               title: 'Versículo del día',
