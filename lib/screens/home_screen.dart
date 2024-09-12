@@ -14,31 +14,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late AdmobInterstitial interstitialAd;
+  // late AdmobInterstitial interstitialAd;
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    interstitialAd = AdmobInterstitial(
-      adUnitId: "ca-app-pub-7568006196201830/3482519473",
-      listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
-        if (event == AdmobAdEvent.loaded) {
-          interstitialAd.show();
-        } else if (event == AdmobAdEvent.closed) {
-          // Añadir un retraso antes de cargar el siguiente anuncio
-          Future.delayed(Duration(seconds: 60), () {
-            interstitialAd.load();
-          });
-          // Actualizar el versículo del día
-          Provider.of<BookProviders>(context, listen: false)
-              .fetchVerseOfTheDay();
-        }
-      },
-    );
+  //   interstitialAd = AdmobInterstitial(
+  //     adUnitId: "ca-app-pub-7568006196201830/3482519473",
+  //     listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
+  //       if (event == AdmobAdEvent.loaded) {
+  //         interstitialAd.show();
+  //       } else if (event == AdmobAdEvent.closed) {
+  //         // Añadir un retraso antes de cargar el siguiente anuncio
+  //         Future.delayed(Duration(seconds: 120), () {
+  //           interstitialAd.load();
+  //         });
+  //         // Actualizar el versículo del día
+  //         Provider.of<BookProviders>(context, listen: false)
+  //             .fetchVerseOfTheDay();
+  //       }
+  //     },
+  //   );
 
-    interstitialAd.load();
-  }
+  //   interstitialAd.load();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +105,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const Spacer(),
                         IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.favorite_border),
+                        ),
+                        IconButton(
                           onPressed: () async {
                             await FlutterShare.share(
                               title: 'Versículo del día',
@@ -142,13 +146,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 300),
-            child: AdmobBanner(
-              adUnitId: "ca-app-pub-7568006196201830/2419923083",
-              adSize: AdmobBannerSize.BANNER,
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.only(top: 300),
+          //   child: AdmobBanner(
+          //     adUnitId: "ca-app-pub-7568006196201830/2419923083",
+          //     adSize: AdmobBannerSize.BANNER,
+          //   ),
+          // ),
         ],
       ),
       bottomNavigationBar: BottomNavigator(),

@@ -3,6 +3,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
+import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
 class BibleScreen extends StatefulWidget {
@@ -15,8 +16,8 @@ class BibleScreen extends StatefulWidget {
 class _BibleScreenState extends State<BibleScreen> {
   @override
   Widget build(BuildContext context) {
+    final favorite = Provider.of<FavoriteProvider>(context, listen: false);
     final ScrollController _scrollController = ScrollController();
-
     final letterSize = Preferences.getSize;
     final chapter = Provider.of<BookProviders>(context).chapterList;
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
@@ -77,10 +78,9 @@ class _BibleScreenState extends State<BibleScreen> {
                   )
                 : null,
             subtitle: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 2.0, top: 6),
               child: Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start, // Alinea los widgets al inicio
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     '${data['Verse']}  ',
@@ -105,6 +105,26 @@ class _BibleScreenState extends State<BibleScreen> {
                     },
                     icon: const Icon(Icons.share,
                         color: Colors.indigo, size: 17.0),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      favorite.setFavoriteList = [
+                        ...favorite.favoriteList,
+                        data
+                      ];
+                      Provider.of<ScreenRoute>(context, listen: false)
+                          .setIndex(2);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SelectedRoutes()));
+                    },
+                    icon: Icon(
+                      Icons.favorite_rounded,
+                      color: favorite.favoriteList.contains(data)
+                          ? Colors.red
+                          : Colors.indigo,
+                    ),
                   ),
                 ],
               ),

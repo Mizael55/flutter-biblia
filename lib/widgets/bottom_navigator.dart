@@ -21,6 +21,10 @@ class BottomNavigator extends StatelessWidget {
             label: 'Biblia',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.favorite, color: Colors.black),
+            label: 'Favoritos',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings, color: Colors.black),
             label: 'Ajustes',
           ),

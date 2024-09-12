@@ -128,7 +128,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             child: AdmobBanner(
               adUnitId: "ca-app-pub-7568006196201830/2419923083",
-              adSize: AdmobBannerSize.FULL_BANNER
+              adSize: AdmobBannerSize.BANNER
             ),
           ),
         ],

@@ -16,6 +16,8 @@ class SelectedRoutes extends StatelessWidget {
       case 1:
         return const BibleScreen();
       case 2:
+        return const FavoriteScreen();
+      case 3:
         return const SettingsScreen();
       default:
         return const HomeScreen();

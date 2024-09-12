@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (context) => ScreenRoute()),
         ChangeNotifierProvider(create: (context) => CorosProvider()),
+        ChangeNotifierProvider(create: (context) => FavoriteProvider()),
         ChangeNotifierProvider(
             create: (context) => LetterSize(
                   size: Preferences.getSize,

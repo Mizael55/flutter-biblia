@@ -30,22 +30,16 @@ class BookProviders extends ChangeNotifier {
 
   Future<List<Map<dynamic, dynamic>>> getChapterList() async {
     final List<Map<dynamic, dynamic>> chapterList = await Book().readJson();
-    // _chapterList.clear();
+    _chapterList.clear();
     _chapterList.addAll(chapterList);
     notifyListeners();
     return chapterList;
   }
 
-  // Future<List<dynamic>> loadAllTheTextAreIgualToParameter(String text) async {
-  //   final List<dynamic> fullBible = await Book().loadAllTheTextAreIgualToParameter(text);
-  //   // _chapterList.clear();
-  //   if (fullBible.isEmpty) {
-  //     _fullBible.clear();
-  //     return fullBible;
-  //   }
-  //   _fullBible.addAll(fullBible);
-  //   notifyListeners();
-  //   return fullBible;
+  // addFavorite(String book, int chapter, int verse) async {
+  //   await Book().addFavorite(book, chapter, verse);
+  //   _chapterList.clear();
+  //   await getChapterList();
   // }
 
   Future<List<Map<dynamic, dynamic>>> fetchSpecificChapter(String name) async {

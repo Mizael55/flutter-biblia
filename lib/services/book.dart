@@ -18,21 +18,18 @@ class Book {
     return r.cast<Map<String, dynamic>>();
   }
 
-  // loadAllTheTextAreIgualToParameter(String name) async {
+  // add value favorite: true to json file
+  // addFavorite(String book, int chapter, int verse) async {
   //   final response = await rootBundle.loadString('assets/spanish.json');
   //   final data = json.decode(response) as List;
-    
 
-  //   // Filtra los datos para que coincidan con el nombre en el campo 'testament'
-  //   final bookData = data.where((element) {
-  //     final bookName = element['Book'].toString().toLowerCase();
-  //     final testament = element['testament'].toString().toLowerCase();
-  //     return bookName.contains(name.toLowerCase()) ||
-  //         testament.contains(name.toLowerCase());
-  //   }).toList();
-  //   print(bookData);
+  //   final bookData = data
+  //       .where((element) => element['Book'] == book && element['Chapter'] == chapter && element['Verse'] == verse)
+  //       .toList();
 
-  //   return bookData.cast<Map<dynamic, dynamic>>();
+  //   bookData[0]['favorite'] = true;
+
+  //   return bookData.cast<Map<String, dynamic>>();
   // }
 
   fetchSpecificChapter(String name, int cap) async {
