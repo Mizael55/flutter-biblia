@@ -9,6 +9,7 @@ class SelectedRoutes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final index = Provider.of<ScreenRoute>(context).currentIndex;
+    DBProvider.db.database;
 
     switch (index) {
       case 0:

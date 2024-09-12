@@ -108,10 +108,17 @@ class _BibleScreenState extends State<BibleScreen> {
                   ),
                   IconButton(
                     onPressed: () {
-                      favorite.setFavoriteList = [
-                        ...favorite.favoriteList,
-                        data
-                      ];
+                      final verse = {
+                        'idx': data['Index'],
+                        'testament': data['Testament'],
+                        'book': data['Book'],
+                        'boookNumber': data['BoookNumber'],
+                        'verse': data['Verse'],
+                        'chapter': data['Chapter'],
+                        'text': data['Text'],
+                        'title': data['Title']
+                      };
+                      favorite.setFavoriteList(verse);
                       Provider.of<ScreenRoute>(context, listen: false)
                           .setIndex(2);
                       Navigator.push(
@@ -121,9 +128,10 @@ class _BibleScreenState extends State<BibleScreen> {
                     },
                     icon: Icon(
                       Icons.favorite_rounded,
-                      color: favorite.favoriteList.contains(data)
+                      color: favorite.favoriteList.any(
+                              (element) => element['text'] == data['Text'])
                           ? Colors.red
-                          : Colors.indigo,
+                          : Colors.grey,
                     ),
                   ),
                 ],

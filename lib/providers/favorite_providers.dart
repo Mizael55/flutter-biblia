@@ -1,3 +1,4 @@
+import 'package:biblia/providers/db_provider.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteProvider with ChangeNotifier {
@@ -5,9 +6,19 @@ class FavoriteProvider with ChangeNotifier {
 
   List<Map<dynamic, dynamic>> get favoriteList => _getFavoriteList;
 
-  set setFavoriteList(List<Map<dynamic, dynamic>> value) {
-    _getFavoriteList = value;
-    print('FavoriteProvider: $favoriteList');
+  setFavoriteList(dynamic value) async{
+    await DBProvider.db.addFavorite(value);
+    await getAllFavorites();
+  }
+
+  getAllFavorites() async {
+    _getFavoriteList = await DBProvider.db.getAllFavorites();
     notifyListeners();
+  }
+
+  // eliminar de favoritos
+  deleteFavorite(dynamic value) async {
+    await DBProvider.db.deleteFavorite(value);
+    await getAllFavorites();
   }
 }

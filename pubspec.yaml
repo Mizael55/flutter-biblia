@@ -39,6 +39,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   shared_preferences: ^2.2.3
   flutter_share: ^2.0.0
+  path_provider: ^2.1.2
   syncfusion_flutter_pdfviewer: ^26.2.13
   admob_flutter: ^3.0.0
   sqflite: ^2.3.3+1
