@@ -95,6 +95,22 @@ class DrawerMenu extends StatelessWidget {
           //   },
           // ),
           Divider(),
+          // ListTile(
+          //   leading: Icon(Icons.my_library_books_rounded,
+          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+          //   trailing: Icon(Icons.arrow_forward_ios,
+          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+          //   title: const Text('Doctrinas'),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //             builder: (context) => const DoctrinasScreen()));
+          //   },
+          // ),
+          // Divider(),
           ListTile(
             leading: Icon(Icons.settings,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),

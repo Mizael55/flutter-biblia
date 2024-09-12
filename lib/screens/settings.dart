@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:biblia/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -118,7 +119,7 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           // Container(
-          //   margin: const EdgeInsets.only(top: 50),
+          //   margin: const EdgeInsets.only(top: 100),
           // ),
           // Container(
           //   padding: const EdgeInsets.only(left: 10, right: 10),

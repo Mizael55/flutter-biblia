@@ -13,12 +13,21 @@ class FavoriteScreen extends StatelessWidget {
     final favorite = Provider.of<FavoriteProvider>(context).favoriteList;
     final letterSize = Preferences.getSize;
 
-    if(favorite.isEmpty){
+    if (favorite.isEmpty) {
       Provider.of<FavoriteProvider>(context, listen: false).getAllFavorites();
     }
 
-
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Versículos favoritos',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: favorite.isEmpty
           ? Center(
               child: Text(

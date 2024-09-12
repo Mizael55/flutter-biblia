@@ -107,25 +107,29 @@ class _BibleScreenState extends State<BibleScreen> {
                         color: Colors.indigo, size: 17.0),
                   ),
                   IconButton(
-                    onPressed: () {
-                      final verse = {
-                        'idx': data['Index'],
-                        'testament': data['Testament'],
-                        'book': data['Book'],
-                        'boookNumber': data['BoookNumber'],
-                        'verse': data['Verse'],
-                        'chapter': data['Chapter'],
-                        'text': data['Text'],
-                        'title': data['Title']
-                      };
-                      favorite.setFavoriteList(verse);
-                      Provider.of<ScreenRoute>(context, listen: false)
-                          .setIndex(2);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SelectedRoutes()));
-                    },
+                    onPressed: favorite.favoriteList
+                            .any((element) => element['text'] == data['Text'])
+                        ? null
+                        : () {
+                            final verse = {
+                              'idx': data['Index'],
+                              'testament': data['Testament'],
+                              'book': data['Book'],
+                              'boookNumber': data['BoookNumber'],
+                              'verse': data['Verse'],
+                              'chapter': data['Chapter'],
+                              'text': data['Text'],
+                              'title': data['Title']
+                            };
+                            favorite.setFavoriteList(verse);
+                            Provider.of<ScreenRoute>(context, listen: false)
+                                .setIndex(2);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SelectedRoutes()));
+                          },
                     icon: Icon(
                       Icons.favorite_rounded,
                       color: favorite.favoriteList

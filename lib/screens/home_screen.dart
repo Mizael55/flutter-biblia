@@ -27,10 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
           interstitialAd.show();
         } else if (event == AdmobAdEvent.closed) {
           // Añadir un retraso antes de cargar el siguiente anuncio
-          Future.delayed(Duration(seconds: 300), () {
+          Future.delayed(Duration(seconds: 600), () {
             interstitialAd.load();
           });
           // Actualizar el versículo del día
+
           Provider.of<BookProviders>(context, listen: false)
               .fetchVerseOfTheDay();
         }
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 400),
+              margin: const EdgeInsets.only(top: 390),
               child: AdmobBanner(
                 adUnitId: "ca-app-pub-7568006196201830/2419923083",
                 adSize: AdmobBannerSize.BANNER,
