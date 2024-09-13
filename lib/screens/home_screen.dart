@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 390),
+              margin: const EdgeInsets.only(top: 290),
               child: AdmobBanner(
                 adUnitId: "ca-app-pub-7568006196201830/2419923083",
                 adSize: AdmobBannerSize.BANNER,
