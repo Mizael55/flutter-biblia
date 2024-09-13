@@ -1,5 +1,6 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
@@ -108,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ListTile(
                       contentPadding: const EdgeInsets.all(15.0),
                       title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             '${data['Book']}: ${data['Chapter']}',
@@ -115,6 +117,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: letterSize,
                               fontWeight: FontWeight.bold,
                             ),
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              await FlutterShare.share(
+                                title: 'Versículo del día',
+                                text:
+                                    '${data['Book']} ${data['Chapter']} ${data['Verse']} ${data['Text']}',
+                              );
+                            },
+                            icon: const Icon(Icons.share,
+                                color: Colors.indigo, size: 17.0),
                           ),
                         ],
                       ),
