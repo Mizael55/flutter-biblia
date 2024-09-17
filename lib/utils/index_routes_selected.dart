@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
+import '../screens/himnos_screen.dart';
 import '../screens/screens.dart';
 
 class SelectedRoutes extends StatelessWidget {
@@ -17,9 +18,13 @@ class SelectedRoutes extends StatelessWidget {
       case 1:
         return const BibleScreen();
       case 2:
-        return const FavoriteScreen();
+        return CorosScreen();
       case 3:
-        return const SettingsScreen();
+        return HimnosScreen();
+      case 4:
+        return FavoriteScreen();
+      // case 5:
+      //   return const SettingsScreen();
       default:
         return const HomeScreen();
     }

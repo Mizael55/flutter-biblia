@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
 
+import '../widgets/widgets.dart';
+
 class Song {
   final String title;
   final String? author;
@@ -72,12 +74,16 @@ class _CorosScreenState extends State<CorosScreen> {
   }
 
   void filterSongs(String query) {
-    final filteredSongs = allSongs.where((song) {
-      final titleLower = song.title.toLowerCase();
-      final searchLower = query.toLowerCase();
+    final searchLower = query.toLowerCase();
 
-      return titleLower.contains(searchLower);
-    }).toList();
+    final filteredSongs = allSongs.asMap().entries.where((entry) {
+      final index = entry.key + 1; // El índice es 1-based
+      final song = entry.value;
+      final titleLower = song.title.toLowerCase();
+      final indexString = index.toString();
+
+      return titleLower.contains(searchLower) || indexString.contains(searchLower);
+    }).map((entry) => entry.value).toList();
 
     setState(() {
       displayedSongs = filteredSongs;
@@ -88,6 +94,7 @@ class _CorosScreenState extends State<CorosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Coros'),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
@@ -112,8 +119,9 @@ class _CorosScreenState extends State<CorosScreen> {
               itemCount: displayedSongs.length,
               itemBuilder: (context, index) {
                 final song = displayedSongs[index];
+                final songIndex = allSongs.indexOf(song) + 1; // Obtener el índice original
                 return ExpansionTile(
-                  title: Text('${index + 1}. ${song.title}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  title: Text('$songIndex. ${song.title}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   subtitle: song.author != null ? Text(song.author!) : null,
                   children: song.verses.map((verse) {
                     return ListTile(
@@ -135,6 +143,7 @@ class _CorosScreenState extends State<CorosScreen> {
                 );
               },
             ),
+            bottomNavigationBar: BottomNavigator(),
     );
   }
 }

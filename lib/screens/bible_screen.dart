@@ -126,7 +126,7 @@ class _BibleScreenState extends State<BibleScreen> {
                                 };
                                 favorite.setFavoriteList(verse);
                                 Provider.of<ScreenRoute>(context, listen: false)
-                                    .setIndex(2);
+                                    .setIndex(4);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(

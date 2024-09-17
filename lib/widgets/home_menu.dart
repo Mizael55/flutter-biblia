@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
-import '../screens/himnos_screen.dart';
 import '../screens/screens.dart';
 import '../utils/utils.dart';
 
@@ -45,20 +44,6 @@ class DrawerMenu extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.book,
-                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-            trailing: Icon(Icons.arrow_forward_ios,
-                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-            title: const Text('Himnos'),
-            onTap: () {
-              Navigator.pop(context);
-              Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HimnosScreen()));
-            },
-          ),
-          Divider(),
-          ListTile(
             leading: Icon(Icons.music_note,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             trailing: Icon(Icons.arrow_forward_ios,
@@ -66,9 +51,39 @@ class DrawerMenu extends StatelessWidget {
             title: const Text('Coros'),
             onTap: () {
               Navigator.pop(context);
-              Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(2);
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CorosScreen()));
+                  MaterialPageRoute(builder: (context) => SelectedRoutes()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.library_books,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            title: const Text('Himnos'),
+            onTap: () {
+              Navigator.pop(context);
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(3);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SelectedRoutes()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.favorite,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            title: const Text('Favoritos'),
+            onTap: () {
+              Navigator.pop(context);
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(4);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectedRoutes()));
             },
           ),
           Divider(),
@@ -85,38 +100,7 @@ class DrawerMenu extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => DirectorioScreen()));
             },
           ),
-          // Divider(),
-          // ListTile(
-          //   leading: Icon(Icons.search,
-          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-          //   trailing: Icon(Icons.arrow_forward_ios,
-          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-          //   title: const Text('Buscar'),
-          //   onTap: () {
-          //     Provider.of<ScreenRoute>(context, listen: false).setIndex(2);
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (context) => SearchScreen()));
-          //   },
-          // ),
           Divider(),
-          // ListTile(
-          //   leading: Icon(Icons.my_library_books_rounded,
-          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-          //   trailing: Icon(Icons.arrow_forward_ios,
-          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-          //   title: const Text('Doctrinas'),
-          //   onTap: () {
-          //     Navigator.pop(context);
-          //     Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (context) => const DoctrinasScreen()));
-          //   },
-          // ),
-          // Divider(),
           ListTile(
             leading: Icon(Icons.settings,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
@@ -125,11 +109,11 @@ class DrawerMenu extends StatelessWidget {
             title: const Text('Ajustes'),
             onTap: () {
               Navigator.pop(context);
-              Provider.of<ScreenRoute>(context, listen: false).setIndex(3);
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const SelectedRoutes()));
+                      builder: (context) => const SettingsScreen()));
             },
           ),
           Divider(),

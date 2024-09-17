@@ -132,7 +132,7 @@ class SettingsScreen extends StatelessWidget {
           // ),
         ],
       ),
-      bottomNavigationBar: BottomNavigator(),
+      // bottomNavigationBar: BottomNavigator(),
     );
   }
 }

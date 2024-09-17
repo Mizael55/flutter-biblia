@@ -1,6 +1,5 @@
 
 export 'package:biblia/screens/coros_screen.dart';
-export 'package:biblia/screens/doctrinas_screen.dart';
 export 'package:biblia/screens/favorite_screen.dart';
 export 'package:biblia/screens/search_screen.dart';
 export 'package:biblia/screens/directorio_screen.dart';

@@ -27,19 +27,33 @@ class BottomNavigator extends StatelessWidget {
           label: 'Biblia',
         ),
         BottomNavigationBarItem(
+          icon: Icon(Icons.music_note,
+              color: theme.currentTheme == ThemeData.dark()
+                  ? Colors.white
+                  : Colors.black),
+          label: 'Coros',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.library_books,
+              color: theme.currentTheme == ThemeData.dark()
+                  ? Colors.white
+                  : Colors.black),
+          label: 'Himnos',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.favorite,
               color: theme.currentTheme == ThemeData.dark()
                   ? Colors.white
                   : Colors.black),
           label: 'Favoritos',
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings,
-              color: theme.currentTheme == ThemeData.dark()
-                  ? Colors.white
-                  : Colors.black),
-          label: 'Ajustes',
-        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.settings,
+        //       color: theme.currentTheme == ThemeData.dark()
+        //           ? Colors.white
+        //           : Colors.black),
+        //   label: 'Ajustes',
+        // ),
       ],
       currentIndex: index,
       selectedItemColor: Colors.indigo,
