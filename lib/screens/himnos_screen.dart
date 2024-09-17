@@ -66,7 +66,7 @@ class _HimnosScreenState extends State<HimnosScreen> {
 
   Future<void> loadSongs() async {
     final String response =
-        await rootBundle.rootBundle.loadString('assets/himnos_data.json');
+        await rootBundle.rootBundle.loadString('assets/himnario_data.json');
     final data = json.decode(response) as List;
     setState(() {
       allSongs = data.map((json) => Song.fromJson(json)).toList();
