@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
+import '../screens/himnos_screen.dart';
 import '../screens/screens.dart';
 import '../utils/utils.dart';
 
@@ -29,15 +30,20 @@ class DrawerMenu extends StatelessWidget {
                 child: Image.asset('assets/icon/icon.png',
                     width: 100, height: 100),
               )),
-          // ListTile(
-          //   leading: Icon(Icons.home,
-          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-          //   trailing: Icon(Icons.arrow_forward_ios,
-          //       color: theme == ThemeData.dark() ? Colors.white : Colors.black),
-          //   title: const Text('Inicio'),
-          //   onTap: () {},
-          // ),
-          // Divider(),
+          ListTile(
+            leading: Icon(Icons.menu_book_rounded,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            title: const Text('Biblia'),
+            onTap: () {
+              Navigator.pop(context);
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(1);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SelectedRoutes()));
+            },
+          ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.book,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
@@ -119,7 +125,7 @@ class DrawerMenu extends StatelessWidget {
             title: const Text('Ajustes'),
             onTap: () {
               Navigator.pop(context);
-              Provider.of<ScreenRoute>(context, listen: false).setIndex(2);
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(3);
               Navigator.push(
                   context,
                   MaterialPageRoute(

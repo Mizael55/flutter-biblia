@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
           create: (context) => BookProviders(),
         ),
         ChangeNotifierProvider(create: (context) => ScreenRoute()),
-        ChangeNotifierProvider(create: (context) => CorosProvider()),
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
         ChangeNotifierProvider(
             create: (context) => LetterSize(

@@ -149,7 +149,7 @@ class _BibleScreenState extends State<BibleScreen> {
           ),
           Positioned(
             top: 10,
-            right: 10,
+            right: 20,
             child: FloatingActionButton(
               onPressed: () {
                 Provider.of<BookProviders>(context, listen: false).setCap(
@@ -165,7 +165,7 @@ class _BibleScreenState extends State<BibleScreen> {
           ),
           Positioned(
             bottom: 10,
-            right: 10,
+            right: 20,
             child: FloatingActionButton(
               onPressed: () {
                 Provider.of<BookProviders>(context, listen: false).setCap(

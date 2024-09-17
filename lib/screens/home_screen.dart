@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late AdmobInterstitial interstitialAd;
+  bool _isAdLoaded = false;
 
   @override
   void initState() {
@@ -25,14 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
       adUnitId: "ca-app-pub-7568006196201830/3482519473",
       listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
         if (event == AdmobAdEvent.loaded) {
-          interstitialAd.show();
+          if (!_isAdLoaded) {
+            interstitialAd.show();
+            setState(() {
+              _isAdLoaded = true;
+            });
+          }
         } else if (event == AdmobAdEvent.closed) {
-          // Añadir un retraso antes de cargar el siguiente anuncio
-          Future.delayed(Duration(seconds: 600), () {
-            interstitialAd.load();
-          });
           // Actualizar el versículo del día
-
           Provider.of<BookProviders>(context, listen: false)
               .fetchVerseOfTheDay();
         }
@@ -40,6 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     interstitialAd.load();
+  }
+
+  @override
+  void dispose() {
+    interstitialAd.dispose();
+    super.dispose();
   }
 
   @override
@@ -169,11 +176,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigator(),
     );
-  }
-
-  @override
-  void dispose() {
-    interstitialAd.dispose();
-    super.dispose();
   }
 }

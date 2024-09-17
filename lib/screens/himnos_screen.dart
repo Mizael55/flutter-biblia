@@ -1,35 +1,59 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:flutter/services.dart' as rootBundle;
+
+class Song {
+  final String title;
+  final String? author;
+  final List<Verse> verses;
+
+  Song({required this.title, this.author, required this.verses});
+
+  factory Song.fromJson(Map<String, dynamic> json) {
+    var list = json['verses'] as List;
+    List<Verse> versesList = list.map((i) => Verse.fromJson(i)).toList();
+
+    return Song(
+      title: json['title'],
+      author: json['author'],
+      verses: versesList,
+    );
+  }
+}
+
+class Verse {
+  final String? verse;
+  final String? chorus;
+  final String text;
+
+  Verse({this.verse, this.chorus, required this.text});
+
+  factory Verse.fromJson(Map<String, dynamic> json) {
+    return Verse(
+      verse: json['verse']?.toString(),
+      chorus: json['chorus']?.toString(),
+      text: json['text'] ?? '',
+    );
+  }
+}
 
 class HimnosScreen extends StatefulWidget {
   @override
-  State<HimnosScreen> createState() => _HimnosScreenState();
+  _HimnosScreenState createState() => _HimnosScreenState();
 }
 
 class _HimnosScreenState extends State<HimnosScreen> {
-  final PdfViewerController _pdfViewerController = PdfViewerController();
+  List<Song> allSongs = [];
+  List<Song> displayedSongs = [];
   final TextEditingController _searchController = TextEditingController();
-  Future<void>? _loadPdfFuture;
 
   @override
   void initState() {
     super.initState();
-    _loadPdfFuture = _loadPdf();
+    loadSongs();
     _searchController.addListener(() {
-      setState(() {
-        // No need to update searchQuery here, as we handle it directly in onChanged and onSubmitted
-      });
-      if (_searchController.text.isNotEmpty) {
-        _pdfViewerController.searchText(_searchController.text.toLowerCase());
-      } else {
-        _pdfViewerController.clearSelection();
-      }
+      filterSongs(_searchController.text);
     });
-  }
-
-  Future<void> _loadPdf() async {
-    // Simulate a delay to load the PDF
-    await Future.delayed(Duration(seconds: 2));
   }
 
   @override
@@ -38,11 +62,33 @@ class _HimnosScreenState extends State<HimnosScreen> {
     super.dispose();
   }
 
+  Future<void> loadSongs() async {
+    final String response = await rootBundle.rootBundle.loadString('assets/himnario_data.json');
+    final data = json.decode(response) as List;
+    setState(() {
+      allSongs = data.map((json) => Song.fromJson(json)).toList();
+      displayedSongs = allSongs;
+    });
+  }
+
+  void filterSongs(String query) {
+    final filteredSongs = allSongs.where((song) {
+      final titleLower = song.title.toLowerCase();
+      final searchLower = query.toLowerCase();
+
+      return titleLower.contains(searchLower);
+    }).toList();
+
+    setState(() {
+      displayedSongs = filteredSongs;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Himnos'),
+        title: Text('Himnos'),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: Padding(
@@ -56,40 +102,39 @@ class _HimnosScreenState extends State<HimnosScreen> {
                 ),
                 prefixIcon: Icon(Icons.search),
               ),
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  _pdfViewerController.searchText(value.toLowerCase());
-                } else {
-                  _pdfViewerController.clearSelection();
-                }
-              },
-              onSubmitted: (value) {
-                if (value.isNotEmpty) {
-                  _pdfViewerController.clearSelection();
-                  _pdfViewerController.searchText(value.toLowerCase());
-                }
-              },
             ),
           ),
         ),
       ),
-      body: FutureBuilder<void>(
-        future: _loadPdfFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error al cargar el PDF'));
-          } else {
-            return SfPdfViewer.asset(
-              'assets/himnario.pdf',
-              controller: _pdfViewerController,
-              initialPageNumber: 2,
-              canShowPaginationDialog: true,
-            );
-          }
-        },
-      ),
+      body: displayedSongs.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: displayedSongs.length,
+              itemBuilder: (context, index) {
+                final song = displayedSongs[index];
+                return ExpansionTile(
+                  title: Text('${index + 1}. ${song.title}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  subtitle: song.author != null ? Text(song.author!) : null,
+                  children: song.verses.map((verse) {
+                    return ListTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (verse.verse != null) ...[
+                            Text(verse.verse!, style: TextStyle(fontWeight: FontWeight.bold))
+                          ],
+                          if (verse.text.isNotEmpty) Text(verse.text, style: TextStyle(fontSize: 18)),
+                          if (verse.chorus != null) ...[
+                            Text('Coro', style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(verse.chorus!, style: TextStyle(fontSize: 18))
+                          ],
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                );
+              },
+            ),
     );
   }
 }

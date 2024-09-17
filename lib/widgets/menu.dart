@@ -104,7 +104,7 @@ class DrawerScreen extends StatelessWidget {
                                     '${gridIndex + 1}',
                                     style: const TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ),
