@@ -101,7 +101,7 @@ class _HimnosScreenState extends State<HimnosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: Text('Himnos'),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
@@ -120,6 +120,7 @@ class _HimnosScreenState extends State<HimnosScreen> {
           ),
         ),
       ),
+      drawer: const DrawerMenu(),
       body: displayedSongs.isEmpty
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(

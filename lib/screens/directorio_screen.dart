@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import '../widgets/widgets.dart';
 
 class DirectorioScreen extends StatefulWidget {
   @override
@@ -67,6 +68,7 @@ class _DirectorioScreenState extends State<DirectorioScreen> {
           ),
         ),
       ),
+      drawer: const DrawerMenu(),
       body: SfPdfViewer.asset(
         'assets/directorio.pdf',
         controller: _pdfViewerController,

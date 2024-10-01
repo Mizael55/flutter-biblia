@@ -19,7 +19,7 @@ class FavoriteScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: Text(
           'Versículos favoritos',
           style: TextStyle(
@@ -28,6 +28,7 @@ class FavoriteScreen extends StatelessWidget {
           ),
         ),
       ),
+      drawer: const DrawerMenu(),
       body: favorite.isEmpty
           ? Center(
               child: Text(

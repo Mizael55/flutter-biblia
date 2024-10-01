@@ -65,7 +65,8 @@ class _CorosScreenState extends State<CorosScreen> {
   }
 
   Future<void> loadSongs() async {
-    final String response = await rootBundle.rootBundle.loadString('assets/coro_data.json');
+    final String response =
+        await rootBundle.rootBundle.loadString('assets/coro_data.json');
     final data = json.decode(response) as List;
     setState(() {
       allSongs = data.map((json) => Song.fromJson(json)).toList();
@@ -76,14 +77,20 @@ class _CorosScreenState extends State<CorosScreen> {
   void filterSongs(String query) {
     final searchLower = query.toLowerCase();
 
-    final filteredSongs = allSongs.asMap().entries.where((entry) {
-      final index = entry.key + 1; // El índice es 1-based
-      final song = entry.value;
-      final titleLower = song.title.toLowerCase();
-      final indexString = index.toString();
+    final filteredSongs = allSongs
+        .asMap()
+        .entries
+        .where((entry) {
+          final index = entry.key + 1; // El índice es 1-based
+          final song = entry.value;
+          final titleLower = song.title.toLowerCase();
+          final indexString = index.toString();
 
-      return titleLower.contains(searchLower) || indexString.contains(searchLower);
-    }).map((entry) => entry.value).toList();
+          return titleLower.contains(searchLower) ||
+              indexString.contains(searchLower);
+        })
+        .map((entry) => entry.value)
+        .toList();
 
     setState(() {
       displayedSongs = filteredSongs;
@@ -94,7 +101,7 @@ class _CorosScreenState extends State<CorosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: Text('Coros'),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
@@ -113,15 +120,19 @@ class _CorosScreenState extends State<CorosScreen> {
           ),
         ),
       ),
+      drawer: const DrawerMenu(),
       body: displayedSongs.isEmpty
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: displayedSongs.length,
               itemBuilder: (context, index) {
                 final song = displayedSongs[index];
-                final songIndex = allSongs.indexOf(song) + 1; // Obtener el índice original
+                final songIndex =
+                    allSongs.indexOf(song) + 1; // Obtener el índice original
                 return ExpansionTile(
-                  title: Text('$songIndex. ${song.title}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  title: Text('$songIndex. ${song.title}',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   subtitle: song.author != null ? Text(song.author!) : null,
                   children: song.verses.map((verse) {
                     return ListTile(
@@ -129,11 +140,14 @@ class _CorosScreenState extends State<CorosScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (verse.verse != null) ...[
-                            Text(verse.verse!, style: TextStyle(fontWeight: FontWeight.bold))
+                            Text(verse.verse!,
+                                style: TextStyle(fontWeight: FontWeight.bold))
                           ],
-                          if (verse.text.isNotEmpty) Text(verse.text, style: TextStyle(fontSize: 18)),
+                          if (verse.text.isNotEmpty)
+                            Text(verse.text, style: TextStyle(fontSize: 18)),
                           if (verse.chorus != null) ...[
-                            Text('Coro', style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Coro',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                             Text(verse.chorus!, style: TextStyle(fontSize: 18))
                           ],
                         ],
@@ -143,7 +157,7 @@ class _CorosScreenState extends State<CorosScreen> {
                 );
               },
             ),
-            bottomNavigationBar: BottomNavigator(),
+      bottomNavigationBar: BottomNavigator(),
     );
   }
 }
