@@ -18,6 +18,13 @@ class Book {
     return r.cast<Map<String, dynamic>>();
   }
 
+  readAllJson() async {
+    final response = await rootBundle.loadString('assets/spanish.json');
+    final data = json.decode(response) as List;
+
+    return data.cast<Map<String, dynamic>>();
+  }
+
   fetchSpecificChapter(String name, int cap) async {
     final response = await rootBundle.loadString('assets/spanish.json');
     final data = json.decode(response) as List;

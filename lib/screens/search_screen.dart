@@ -1,87 +1,78 @@
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:diacritic/diacritic.dart'; // Importa la biblioteca para eliminar acentos
+import '../providers/providers.dart';
+import '../share_preferences/preferences.dart';
 
-// import '../providers/providers.dart';
-// import '../share_preferences/preferences.dart';
+class SearchScreen extends StatefulWidget {
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
 
-// class SearchScreen extends StatefulWidget {
-//   @override
-//   State<SearchScreen> createState() => _SearchScreenState();
-// }
+class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  String searchQuery = '';
 
-// class _SearchScreenState extends State<SearchScreen> {
-//   final TextEditingController _searchController = TextEditingController();
-//   final ScrollController _scrollController = ScrollController();
-//   String searchQuery = '';
-//   List<dynamic> filteredChapter = [];
+  @override
+  Widget build(BuildContext context) {
+    final filterFullBible = Provider.of<BookProviders>(context).fullBible;
+    final letterSize = Preferences.getSize;
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _searchController.addListener(() {
-//       setState(() {
-//         searchQuery = _searchController.text.toLowerCase();
-//         if (searchQuery.isNotEmpty) {
-//           Provider.of<BookProviders>(context, listen: false)
-//               .loadAllTheTextAreIgualToParameter(searchQuery)
-//               .then((result) {
-//             setState(() {
-//               filteredChapter = result;
-//             });
-//           });
-//         } else {
-//           filteredChapter = [];
-//         }
-//       });
-//     });
-//   }
+    if (filterFullBible.isEmpty) {
+      Provider.of<BookProviders>(context).readAllJson();
+      return const Scaffold(
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Cargando...'),
+            CircularProgressIndicator(backgroundColor: Colors.indigo),
+          ],
+        )),
+      );
+    }
 
-//   @override
-//   void dispose() {
-//     _searchController.dispose();
-//     _scrollController.dispose();
-//     super.dispose();
-//   }
+    // Filtrar los versículos según el texto de búsqueda
+    final filteredBible = filterFullBible.where((data) {
+      final text = removeDiacritics(data['Text'].toString().toLowerCase());
+      final searchText = removeDiacritics(searchQuery.toLowerCase());
+      return text.contains(searchText);
+    }).toList();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final letterSize = Preferences.getSize;
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Buscar'),
-//         bottom: PreferredSize(
-//           preferredSize: Size.fromHeight(kToolbarHeight),
-//           child: Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: TextField(
-//               controller: _searchController,
-//               decoration: InputDecoration(
-//                 hintText: 'Buscar...',
-//                 border: OutlineInputBorder(
-//                   borderRadius: BorderRadius.circular(25.0),
-//                 ),
-//                 prefixIcon: Icon(Icons.search),
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//       body: filteredChapter.isEmpty
-//           ? Center(child: Text('No hay resultados'))
-//           : ListView.builder(
-//               controller: _scrollController,
-//               itemCount: filteredChapter.length,
-//               itemBuilder: (context, index) {
-//                 final data = filteredChapter[index];
-//                 return ListTile(
-//                   title: Text(
-//                     data['text'],
-//                     style: TextStyle(fontSize: letterSize),
-//                   ),
-//                 );
-//               },
-//             ),
-//     );
-//   }
-// }
+    return Scaffold(
+      appBar: AppBar(
+        title: TextField(
+          controller: _searchController,
+          onChanged: (value) {
+            setState(() {
+              searchQuery = value;
+            });
+          },
+          decoration: InputDecoration(
+            hintText: 'Buscar...',
+            hintStyle: TextStyle(fontSize: letterSize),
+          ),
+        ),
+      ),
+      body: ListView.builder(
+        controller: _scrollController,
+        itemCount: filteredBible.length,
+        itemBuilder: (context, index) {
+          final item = filteredBible[index];
+          return ListTile(
+            title: Text(
+              '${item['Book']} ${item['Chapter']}:${item['Verse']}',
+              style:
+                  TextStyle(fontSize: letterSize, fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(
+              item['Text'],
+              style: TextStyle(fontSize: letterSize),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

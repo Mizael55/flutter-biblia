@@ -88,6 +88,20 @@ class DrawerMenu extends StatelessWidget {
           ),
           Divider(),
           ListTile(
+            leading: Icon(Icons.search,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            title: const Text('Busqueda general'),
+            onTap: () {
+              Navigator.pop(context);
+              // Provider.of<ScreenRoute>(context, listen: false).setIndex(5);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchScreen()));
+            },
+          ),
+          Divider(),
+          ListTile(
             leading: Icon(Icons.phone,
                 color: theme == ThemeData.dark() ? Colors.white : Colors.black),
             trailing: Icon(Icons.arrow_forward_ios,
@@ -109,11 +123,27 @@ class DrawerMenu extends StatelessWidget {
             title: const Text('Ajustes'),
             onTap: () {
               Navigator.pop(context);
-              Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(5);
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const SettingsScreen()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.home,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            trailing: Icon(Icons.arrow_forward_ios,
+                color: theme == ThemeData.dark() ? Colors.white : Colors.black),
+            title: const Text('Inicio'),
+            onTap: () {
+              Navigator.pop(context);
+              Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectedRoutes()));
             },
           ),
           Divider(),

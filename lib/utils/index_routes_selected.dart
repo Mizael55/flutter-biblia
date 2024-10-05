@@ -23,8 +23,8 @@ class SelectedRoutes extends StatelessWidget {
         return HimnosScreen();
       case 4:
         return FavoriteScreen();
-      // case 5:
-      //   return const SettingsScreen();
+      case 5:
+        return const SettingsScreen();
       default:
         return const HomeScreen();
     }

@@ -47,13 +47,6 @@ class BottomNavigator extends StatelessWidget {
                   : Colors.black),
           label: 'Favoritos',
         ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.settings,
-        //       color: theme.currentTheme == ThemeData.dark()
-        //           ? Colors.white
-        //           : Colors.black),
-        //   label: 'Ajustes',
-        // ),
       ],
       currentIndex: index,
       selectedItemColor: Colors.indigo,

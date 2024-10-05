@@ -5,6 +5,7 @@ import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
+import 'screens.dart';
 
 class BibleScreen extends StatefulWidget {
   const BibleScreen({Key? key}) : super(key: key);
@@ -55,6 +56,18 @@ class _BibleScreenState extends State<BibleScreen> {
                 Scaffold.of(context).openDrawer();
               }),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) =>  SearchScreen()));
+            },
+            icon: Icon(
+              Icons.search,
+              color: theme == ThemeData.dark() ? Colors.white : Colors.black,
+            ),
+          ),
+        ],
         centerTitle: true,
         title: Text('${chapter[0]['Book']}',
             style: TextStyle(

@@ -5,10 +5,12 @@ class BookProviders extends ChangeNotifier {
   bool oldBooks = true;
   late int cap;
   final List<Map<dynamic, dynamic>> _chapterList = [];
+  final List<Map<dynamic, dynamic>> _fullBible = [];
   // final List<dynamic> _fullBible = [];
   final List<Map<dynamic, dynamic>> _verseOfTheDay = [];
   List<Map<dynamic, dynamic>> get verseOfTheDay => _verseOfTheDay;
   List<Map<dynamic, dynamic>> get chapterList => _chapterList;
+  List<Map<dynamic, dynamic>> get fullBible => _fullBible;
   // List<dynamic> get fullBible => _fullBible;
 
   int getCap() {
@@ -34,6 +36,13 @@ class BookProviders extends ChangeNotifier {
     _chapterList.addAll(chapterList);
     notifyListeners();
     return chapterList;
+  }
+  Future<List<Map<dynamic, dynamic>>> readAllJson() async {
+    final List<Map<dynamic, dynamic>> fullBible = await Book().readAllJson();
+    _fullBible.clear();
+    _fullBible.addAll(fullBible);
+    notifyListeners();
+    return fullBible;
   }
 
   Future<List<Map<dynamic, dynamic>>> fetchSpecificChapter(String name) async {
