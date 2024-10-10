@@ -42,6 +42,23 @@ class DBProvider {
           title TEXT
         )
         ''');
+
+        // crea la tabla de favoritos
+        await db.execute('''
+        CREATE TABLE favoritesSongs (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        lyrics TEXT
+      )
+      ''');
+
+       await db.execute('''
+        CREATE TABLE favoritesSongsHimnos (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        lyrics TEXT
+      )
+    ''');
       },
     );
   }
@@ -64,4 +81,52 @@ class DBProvider {
         await db!.delete('favorites', where: 'id = ?', whereArgs: [id]);
     print(data);
   }
+
+  Future<void> insertFavoriteSong(String title, String lyrics) async {
+    final db = await database;
+    await db!.insert(
+      'favoritesSongs',
+      {'title': title, 'lyrics': lyrics},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> deleteFavoriteSong(String title) async {
+    final db = await database;
+    await db!.delete(
+      'favoritesSongs',
+      where: 'title = ?',
+      whereArgs: [title],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getFavorites() async {
+    final db = await database;
+    print(await db!.query('favoritesSongs'));
+    return await db.query('favoritesSongs');
+  }
+
+ Future<void> insertFavoriteSongsHimnos(String title, String lyrics) async {
+    final db = await database;
+    await db!.insert(
+      'favoritesSongsHimnos',
+      {'title': title, 'lyrics': lyrics},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> deleteFavoriteSongsHimnos(String title) async {
+    final db = await database;
+    await db!.delete(
+      'favoritesSongsHimnos',
+      where: 'title = ?',
+      whereArgs: [title],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getFavoritesSongsHimnos() async {
+    final db = await database;
+    return await db!.query('favoritesSongsHimnos');
+  }
+
 }

@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     interstitialAd.load();
+     
   }
 
   @override
@@ -74,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        
         leading: Builder(
           builder: (context) => IconButton(
               icon: Icon(
@@ -166,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: Container(
-                margin: const EdgeInsets.only(top: 590),
+                margin: const EdgeInsets.only(top: 250),
                 child: AdmobBanner(
                   adUnitId: "ca-app-pub-7568006196201830/2419923083",
                   adSize: AdmobBannerSize.BANNER,

@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
-
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import '../providers/providers.dart';
 import '../widgets/widgets.dart';
 
 class Song {
@@ -21,6 +24,18 @@ class Song {
       verses: versesList,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'author': author,
+      'verses': verses.map((v) => v.toJson()).toList(),
+    };
+  }
+
+  String get lyrics {
+    return verses.map((v) => v.toString()).join('\n');
+  }
 }
 
 class Verse {
@@ -37,6 +52,23 @@ class Verse {
       text: json['text'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'verse': verse,
+      'chorus': chorus,
+      'text': text,
+    };
+  }
+
+  @override
+  String toString() {
+    return [
+      if (verse != null) verse,
+      text,
+      if (chorus != null) 'Coro: $chorus',
+    ].where((element) => element != null && element.isNotEmpty).join('\n');
+  }
 }
 
 class CorosScreen extends StatefulWidget {
@@ -47,12 +79,15 @@ class CorosScreen extends StatefulWidget {
 class _CorosScreenState extends State<CorosScreen> {
   List<Song> allSongs = [];
   List<Song> displayedSongs = [];
+  List<Map<String, dynamic>> favoriteSongs = [];
+  bool isFavorite = true;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     loadSongs();
+    loadFavorites();
     _searchController.addListener(() {
       filterSongs(_searchController.text);
     });
@@ -72,6 +107,22 @@ class _CorosScreenState extends State<CorosScreen> {
       allSongs = data.map((json) => Song.fromJson(json)).toList();
       displayedSongs = allSongs;
     });
+  }
+
+  Future<void> loadFavorites() async {
+    final favorites = await FavoriteSongsProvider().getFavorites();
+    setState(() {
+      favoriteSongs = favorites;
+    });
+  }
+
+  Future<void> toggleFavorite(Song song) async {
+    if (favoriteSongs.any((fav) => fav['title'] == song.title)) {
+      await FavoriteSongsProvider().deleteFavoriteSong(song.title);
+    } else {
+      await FavoriteSongsProvider().insertFavoriteSong(song.title, song.lyrics);
+    }
+    loadFavorites();
   }
 
   void filterSongs(String query) {
@@ -103,6 +154,20 @@ class _CorosScreenState extends State<CorosScreen> {
       appBar: AppBar(
         // automaticallyImplyLeading: false,
         title: Text('Coros'),
+        actions: [
+          Text(isFavorite ? 'Favoritos' : 'Volver',
+              style: TextStyle(fontSize: 20)),
+          IconButton(
+            icon: !isFavorite
+                ? Icon(Icons.arrow_back, color: Colors.black)
+                : Icon(Icons.favorite, color: Colors.red),
+            onPressed: () {
+              setState(() {
+                isFavorite = !isFavorite;
+              });
+            },
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: Padding(
@@ -123,40 +188,150 @@ class _CorosScreenState extends State<CorosScreen> {
       drawer: const DrawerMenu(),
       body: displayedSongs.isEmpty
           ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: displayedSongs.length,
-              itemBuilder: (context, index) {
-                final song = displayedSongs[index];
-                final songIndex =
-                    allSongs.indexOf(song) + 1; // Obtener el índice original
-                return ExpansionTile(
-                  title: Text('$songIndex. ${song.title}',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  subtitle: song.author != null ? Text(song.author!) : null,
-                  children: song.verses.map((verse) {
-                    return ListTile(
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (verse.verse != null) ...[
-                            Text(verse.verse!,
-                                style: TextStyle(fontWeight: FontWeight.bold))
+          : !isFavorite
+              ? Stack(children: [
+                  ListView.builder(
+                    itemCount: favoriteSongs.length,
+                    itemBuilder: (context, index) {
+                      final favorite = favoriteSongs[index];
+                      final song = allSongs.firstWhere(
+                          (song) => song.title == favorite['title']);
+                      final songIndex = allSongs.indexOf(song) + 1;
+                      return ExpansionTile(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '$songIndex. ${song.title}',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ],
-                          if (verse.text.isNotEmpty)
-                            Text(verse.text, style: TextStyle(fontSize: 18)),
-                          if (verse.chorus != null) ...[
-                            Text('Coro',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text(verse.chorus!, style: TextStyle(fontSize: 18))
-                          ],
-                        ],
+                        ),
+                        subtitle:
+                            song.author != null ? Text(song.author!) : null,
+                        children: song.verses.map((verse) {
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (verse.verse != null) ...[
+                                  Text(
+                                    verse.verse!,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                                if (verse.text.isNotEmpty)
+                                  Text(
+                                    verse.text,
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                if (verse.chorus != null) ...[
+                                  Text(
+                                    'Coro',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    verse.chorus!,
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    },
+                  ),
+                ])
+              : Stack(
+                  children: [
+                    ListView.builder(
+                      itemCount: displayedSongs.length,
+                      itemBuilder: (context, index) {
+                        final song = displayedSongs[index];
+                        final songIndex = allSongs.indexOf(song) +
+                            1; // Obtener el índice original
+                        final isFavoriteSong = favoriteSongs
+                            .any((fav) => fav['title'] == song.title);
+
+                        return ExpansionTile(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  '$songIndex. ${song.title}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  isFavoriteSong
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: isFavoriteSong ? Colors.red : null,
+                                ),
+                                onPressed: () {
+                                  toggleFavorite(song);
+                                },
+                              ),
+                            ],
+                          ),
+                          subtitle:
+                              song.author != null ? Text(song.author!) : null,
+                          children: song.verses.map((verse) {
+                            return ListTile(
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (verse.verse != null) ...[
+                                    Text(
+                                      verse.verse!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                  if (verse.text.isNotEmpty)
+                                    Text(
+                                      verse.text,
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  if (verse.chorus != null) ...[
+                                    Text(
+                                      'Coro',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      verse.chorus!,
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: AdmobBanner(
+                        adUnitId: "ca-app-pub-7568006196201830/2419923083",
+                        adSize: AdmobBannerSize.BANNER,
                       ),
-                    );
-                  }).toList(),
-                );
-              },
-            ),
+                    ),
+                  ],
+                ),
       bottomNavigationBar: BottomNavigator(),
     );
   }

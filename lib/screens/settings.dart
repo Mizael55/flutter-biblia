@@ -1,12 +1,48 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:biblia/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../widgets/widgets.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  late AdmobInterstitial interstitialAd;
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    interstitialAd = AdmobInterstitial(
+      adUnitId: "ca-app-pub-7568006196201830/3482519473",
+      listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
+        if (event == AdmobAdEvent.loaded) {
+          if (!_isAdLoaded) {
+            interstitialAd.show();
+            setState(() {
+              _isAdLoaded = true;
+            });
+          }
+        } 
+        
+      },
+    );
+
+    interstitialAd.load();
+  }
+
+  @override
+  void dispose() {
+    interstitialAd.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final size = Provider.of<LetterSize>(context).getSize;

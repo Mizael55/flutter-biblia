@@ -7703,8 +7703,45 @@
         "chorus": "Quiero llegar al cielo\nYa voy a descansar\nQuiero mirar tu rostro\nSeñor, yo quiero llegar."
       }
     ]
+  },
+  {
+    "title": "Te alabamos, te adoramos",
+    "verses": [
+      {
+        "verse": 1,
+        "text": "Te alabamos, te adoramos\nCristo es mi Rey\nTe alabamos, te adoramos\nCristo es mi Rey"
+      },
+      {
+        "verse": 2,
+        "text": "Y Eres Grande y Eres Fuerte\nPoderoso, llenas todo\nAnte Ti todo es nada\nCristo es mi Rey"
+      },
+      {
+        "chorus": "Te alabamos, te adoramos\nCristo es mi Rey\nTe alabamos, te adoramos\nCristo es mi Rey\nY Eres Grande y Eres Fuerte\nPoderoso, llenas todo\nAnte Ti todo es nada\nCristo es mi Rey\nCristo es mi Rey"
+      }
+    ]
+  },
+  {
+    "title": "La bondad de Dios",
+    "verses": [
+      {
+        "verse": 1,
+        "text": "Te amo Dios\nTu amor nunca me falla\nMi existir\nEn tus manos está\nDesde el momento en que despierto\nHasta el anochecer\nYo hoy de la bondad de Dios"
+      },
+      {
+        "chorus": "En mi vida tu eres bueno\nEn mi vida sigues siendo fiel\nCon mi ser con cada aliento\nYo cantaré de la bondad de Dios"
+      },
+      {
+        "verse": 2,
+        "text": "Yo amo tu voz\nMe has guiado por fuego\nTú cerca estás\nEn la oscuridad\nTe conozco como Padre\nY como amigo fiel\nMi vida está\nEn la bondad de Dios"
+      },
+      {
+        "chorus": "En mi vida tu eres bueno\nEn mi vida sigues siendo fiel\nCon mi ser con cada aliento\nYo cantaré de la bondad de Dios"
+      },
+      {
+        "chorus": "Tu fidelidad sigue bendiciendome\nTu fidelidad sigue bendiciendome\nTodo lo que soy te lo entrego hoy\nAquí me rendiré\nTu fidelidad sigue bendiciendome"
+      }
+    ]
   }
-  
 ]
   
   
