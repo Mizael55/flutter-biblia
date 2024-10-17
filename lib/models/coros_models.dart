@@ -1,34 +1,63 @@
-// class CorosModel {
-//   final String titulo;
-//   final List<String> estrofas;
-//   final List<String> coro;
+class Song {
+  final String title;
+  final String? author;
+  final List<Verse> verses;
 
-//   CorosModel({
-//     required this.titulo,
-//     required this.estrofas,
-//     required this.coro,
-//   });
+  Song({required this.title, this.author, required this.verses});
 
-//   // Método para crear una instancia de CorosModel a partir de un JSON
-//   factory CorosModel.fromJson(Map<String, dynamic> json) {
-//     return CorosModel(
-//       titulo: json['titulo'] as String,
-//       estrofas: List<String>.from(json['estrofas'] as List<dynamic>),
-//       coro: List<String>.from(json['coro'] as List<dynamic>),
-//     );
-//   }
+  factory Song.fromJson(Map<String, dynamic> json) {
+    var list = json['verses'] as List;
+    List<Verse> versesList = list.map((i) => Verse.fromJson(i)).toList();
 
-//   // Método para convertir una instancia de CorosModel a JSON
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'titulo': titulo,
-//       'estrofas': estrofas,
-//       'coro': coro,
-//     };
-//   }
+    return Song(
+      title: json['title'],
+      author: json['author'],
+      verses: versesList,
+    );
+  }
 
-//   @override
-//   String toString() {
-//     return 'CorosModel(titulo: $titulo, estrofas: $estrofas, coro: $coro)';
-//   }
-// }
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'author': author,
+      'verses': verses.map((v) => v.toJson()).toList(),
+    };
+  }
+
+  String get lyrics {
+    return verses.map((v) => v.toString()).join('\n');
+  }
+}
+
+class Verse {
+  final String? verse;
+  final String? chorus;
+  final String text;
+
+  Verse({this.verse, this.chorus, required this.text});
+
+  factory Verse.fromJson(Map<String, dynamic> json) {
+    return Verse(
+      verse: json['verse']?.toString(),
+      chorus: json['chorus']?.toString(),
+      text: json['text'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'verse': verse,
+      'chorus': chorus,
+      'text': text,
+    };
+  }
+
+  @override
+  String toString() {
+    return [
+      if (verse != null) verse,
+      text,
+      if (chorus != null) 'Coro: $chorus',
+    ].where((element) => element != null && element.isNotEmpty).join('\n');
+  }
+}

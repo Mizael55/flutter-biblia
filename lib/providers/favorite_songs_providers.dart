@@ -18,7 +18,6 @@ class FavoriteSongsProvider extends ChangeNotifier {
 
   Future<List<Map<String, dynamic>>> getFavorites() async {
     final data = await DBProvider.db.getFavorites();
-
     return data;
   }
 

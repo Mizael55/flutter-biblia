@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
@@ -5,8 +6,43 @@ import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
 import '../widgets/widgets.dart';
 
-class FavoriteScreen extends StatelessWidget {
+class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
+}
+
+class _FavoriteScreenState extends State<FavoriteScreen> {
+  late AdmobInterstitial interstitialAd;
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    interstitialAd = AdmobInterstitial(
+      adUnitId: "ca-app-pub-7568006196201830/3482519473",
+      listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
+        if (event == AdmobAdEvent.loaded) {
+          if (!_isAdLoaded) {
+            interstitialAd.show();
+            setState(() {
+              _isAdLoaded = true;
+            });
+          }
+        }
+      },
+    );
+
+    interstitialAd.load();
+  }
+
+  @override
+  void dispose() {
+    interstitialAd.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -20,13 +20,13 @@ class DBProvider {
   initDB() async {
     // path de donde almacenaremos la base de datos
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, 'favorites.db');
+    final path = join(documentsDirectory.path, 'bibliaDB.db');
     // print(path);
 
     // Crear base de datos
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         await db.execute('''
@@ -43,7 +43,6 @@ class DBProvider {
         )
         ''');
 
-        // crea la tabla de favoritos
         await db.execute('''
         CREATE TABLE favoritesSongs (
         id INTEGER PRIMARY KEY,
@@ -58,7 +57,7 @@ class DBProvider {
         title TEXT,
         lyrics TEXT
       )
-    ''');
+      ''');
       },
     );
   }
