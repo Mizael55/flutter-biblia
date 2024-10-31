@@ -41,7 +41,7 @@ class SongDetailScreen extends StatelessWidget {
                         SizedBox(height: 8),
                         Text(
                           verse.text,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 20),
                           textAlign: TextAlign.center,
                         ),
                         if (verse.chorus != null) ...[
@@ -54,7 +54,7 @@ class SongDetailScreen extends StatelessWidget {
                           SizedBox(height: 4),
                           Text(
                             verse.chorus!,
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
                         ],

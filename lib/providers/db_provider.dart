@@ -51,7 +51,7 @@ class DBProvider {
       )
       ''');
 
-       await db.execute('''
+        await db.execute('''
         CREATE TABLE favoritesSongsHimnos (
         id INTEGER PRIMARY KEY,
         title TEXT,
@@ -105,7 +105,7 @@ class DBProvider {
     return await db.query('favoritesSongs');
   }
 
- Future<void> insertFavoriteSongsHimnos(String title, String lyrics) async {
+  Future<void> insertFavoriteSongsHimnos(String title, String lyrics) async {
     final db = await database;
     await db!.insert(
       'favoritesSongsHimnos',
@@ -127,5 +127,4 @@ class DBProvider {
     final db = await database;
     return await db!.query('favoritesSongsHimnos');
   }
-
 }

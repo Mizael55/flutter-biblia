@@ -1,4 +1,5 @@
 import 'package:admob_flutter/admob_flutter.dart';
+import 'package:biblia/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     interstitialAd.load();
-     
   }
 
   @override
@@ -75,7 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        
         leading: Builder(
           builder: (context) => IconButton(
               icon: Icon(
@@ -86,6 +85,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 Scaffold.of(context).openDrawer();
               }),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchScreen()));
+            },
+            icon: Icon(
+              Icons.search,
+              color: theme == ThemeData.dark() ? Colors.white : Colors.black,
+            ),
+          ),
+        ],
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text('Versículo del día',
@@ -168,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: Container(
-                margin: const EdgeInsets.only(top: 250),
+                margin: const EdgeInsets.only(top: 380, right: 70),
                 child: AdmobBanner(
                   adUnitId: "ca-app-pub-7568006196201830/2419923083",
                   adSize: AdmobBannerSize.BANNER,
@@ -177,6 +188,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Provider.of<ScreenRoute>(context, listen: false).setIndex(5);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SettingsScreen()));
+        },
+        child: const Icon(Icons.settings),
       ),
       bottomNavigationBar: BottomNavigator(),
     );
