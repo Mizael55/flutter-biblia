@@ -1,4 +1,4 @@
-import 'package:biblia/providers/db_provider.dart';
+import 'package:biblia/db/db.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteProvider with ChangeNotifier {

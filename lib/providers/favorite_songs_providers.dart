@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'db_provider.dart';
+import '../db/db.dart';
 
 class FavoriteSongsProvider extends ChangeNotifier {
 

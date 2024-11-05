@@ -4,6 +4,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../share_preferences/preferences.dart';
+import '../utils/utils.dart';
 import '../widgets/widgets.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -76,55 +77,71 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               itemCount: favorite.length,
               itemBuilder: (context, index) {
                 final data = favorite[index];
-                return Card(
-                  margin: const EdgeInsets.all(15),
-                  child: ListTile(
-                    title: Text(
-                      '${data['book']} ${data['chapter']}',
-                      style: TextStyle(
-                        fontSize: letterSize,
-                        fontWeight: FontWeight.bold,
+                return GestureDetector(
+                  onTap: () {
+                    Provider.of<BookProviders>(context, listen: false)
+                        .setCap(data['chapter']);
+                    Provider.of<BookProviders>(context, listen: false)
+                        .fetchSpecificChapter(
+                            data['book']); // Actualiza el capítulo actual
+                    Provider.of<ScreenRoute>(context, listen: false)
+                        .setIndex(1);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SelectedRoutes()));
+                    print('data: $data');
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.all(15),
+                    child: ListTile(
+                      title: Text(
+                        '${data['book']} ${data['chapter']}',
+                        style: TextStyle(
+                          fontSize: letterSize,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(left: 2.0, top: 6),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            '${data['verse']}  ',
-                            style: TextStyle(
-                              fontSize: letterSize,
-                              fontWeight: FontWeight.bold,
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(left: 2.0, top: 6),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '${data['verse']}  ',
+                              style: TextStyle(
+                                fontSize: letterSize,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${data['text']}',
-                              style: TextStyle(fontSize: letterSize),
+                            Expanded(
+                              child: Text(
+                                '${data['text']}',
+                                style: TextStyle(fontSize: letterSize),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () async {
-                              await FlutterShare.share(
-                                title: 'Versículo del día',
-                                text:
-                                    '${data['book']} ${data['chapter']} ${data['verse']} ${data['text']}',
-                              );
-                            },
-                            icon: const Icon(Icons.share,
-                                color: Colors.indigo, size: 17.0),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Provider.of<FavoriteProvider>(context,
-                                      listen: false)
-                                  .deleteFavorite(data['id']);
-                            },
-                            icon:
-                                Icon(Icons.favorite_rounded, color: Colors.red),
-                          ),
-                        ],
+                            IconButton(
+                              onPressed: () async {
+                                await FlutterShare.share(
+                                  title: 'Versículo del día',
+                                  text:
+                                      '${data['book']} ${data['chapter']} ${data['verse']} ${data['text']}',
+                                );
+                              },
+                              icon: const Icon(Icons.share,
+                                  color: Colors.indigo, size: 17.0),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                Provider.of<FavoriteProvider>(context,
+                                        listen: false)
+                                    .deleteFavorite(data['id']);
+                              },
+                              icon: Icon(Icons.favorite_rounded,
+                                  color: Colors.red),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
