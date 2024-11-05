@@ -119,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
           print('data: $data');
         },
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Padding(
               padding:
@@ -177,6 +178,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: GestureDetector(
+                onTap: () {
+                  Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AudioScreen()));
+                },
+                child: CircleAvatar(
+                  radius: 35.0,
+                  backgroundImage: AssetImage('assets/img/koinonia.jpeg'),
+                ),
+              ),
+            ),
             Expanded(
               child: Container(
                 margin: const EdgeInsets.only(top: 380, right: 70),
@@ -189,31 +204,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          // FloatingActionButton(
-          //   onPressed: () {
-          //     Provider.of<ScreenRoute>(context, listen: false).setIndex(5);
-          //     Navigator.push(context,
-          //         MaterialPageRoute(builder: (context) => const SettingsScreen()));
-          //   },
-          //   child: const Icon(Icons.settings),
-          // ),
-          // const SizedBox(height: 10.0),
-         // circularAvatar(),
-         GestureDetector(
-          onTap: () {
-            Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>  AudioScreen()));
-          },
-           child: CircleAvatar(
-              radius: 32.0,
-              backgroundImage: AssetImage('assets/img/koinonia.jpeg'),
-            ),
-         ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Provider.of<ScreenRoute>(context, listen: false).setIndex(5);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SettingsScreen()));
+        },
+        child: const Icon(Icons.settings),
       ),
       bottomNavigationBar: BottomNavigator(),
     );

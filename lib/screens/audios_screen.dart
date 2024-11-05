@@ -34,11 +34,29 @@ class _AudioScreenState extends State<AudioScreen> {
   bool _isPlaying = false;
   Duration _duration = Duration.zero;
   Duration _position = Duration.zero;
+  late AdmobInterstitial interstitialAd;
+  bool _isAdLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    
+
+    interstitialAd = AdmobInterstitial(
+      adUnitId: "ca-app-pub-7568006196201830/3482519473",
+      listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
+        if (event == AdmobAdEvent.loaded) {
+          if (!_isAdLoaded) {
+            interstitialAd.show();
+            setState(() {
+              _isAdLoaded = true;
+            });
+          }
+        }
+      },
+    );
+
+    interstitialAd.load();
+
     // Escucha los cambios en la duración y posición del audio
     _audioPlayer.onDurationChanged.listen((duration) {
       setState(() {
@@ -177,7 +195,9 @@ class _AudioScreenState extends State<AudioScreen> {
                 ),
                 IconButton(
                   icon: Icon(
-                    _isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled,
+                    _isPlaying
+                        ? Icons.pause_circle_filled
+                        : Icons.play_circle_filled,
                     size: 64,
                   ),
                   onPressed: _isPlaying ? _pauseAudio : _playAudio,
