@@ -189,13 +189,31 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Provider.of<ScreenRoute>(context, listen: false).setIndex(5);
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SettingsScreen()));
-        },
-        child: const Icon(Icons.settings),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // FloatingActionButton(
+          //   onPressed: () {
+          //     Provider.of<ScreenRoute>(context, listen: false).setIndex(5);
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => const SettingsScreen()));
+          //   },
+          //   child: const Icon(Icons.settings),
+          // ),
+          // const SizedBox(height: 10.0),
+         // circularAvatar(),
+         GestureDetector(
+          onTap: () {
+            Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) =>  AudioScreen()));
+          },
+           child: CircleAvatar(
+              radius: 32.0,
+              backgroundImage: AssetImage('assets/img/koinonia.jpeg'),
+            ),
+         ),
+        ],
       ),
       bottomNavigationBar: BottomNavigator(),
     );

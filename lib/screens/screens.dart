@@ -1,4 +1,5 @@
 
+export 'package:biblia/screens/audios_screen.dart';
 export 'package:biblia/screens/coros_screen.dart';
 export 'package:biblia/screens/favorite_screen.dart';
 export 'package:biblia/screens/search_screen.dart';
