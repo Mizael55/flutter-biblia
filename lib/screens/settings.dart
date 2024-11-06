@@ -1,6 +1,7 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:biblia/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:provider/provider.dart';
 import '../providers/providers.dart';
 import '../widgets/widgets.dart';
@@ -30,8 +31,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _isAdLoaded = true;
             });
           }
-        } 
-        
+        }
       },
     );
 
@@ -43,6 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     interstitialAd.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final size = Provider.of<LetterSize>(context).getSize;
@@ -119,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
             child: Row(
               children: [
-                Text('Idiomas',
+                Text('Idioma',
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 // TextButton(onPressed: () {}, child: Text('English')),
@@ -153,22 +154,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
           ),
-          // Container(
-          //   margin: const EdgeInsets.only(top: 100),
-          // ),
-          // Container(
-          //   padding: const EdgeInsets.only(left: 10, right: 10),
-          //   constraints: BoxConstraints(
-          //     maxHeight: 100, // Ajusta este valor según sea necesario
-          //   ),
-          //   child: AdmobBanner(
-          //     adUnitId: "ca-app-pub-7568006196201830/2419923083",
-          //     adSize: AdmobBannerSize.BANNER
-          //   ),
-          // ),
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
+            child: Row(
+              children: [
+                Text('Compartir aplicación',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                SizedBox(width: 40),
+                IconButton(
+                  onPressed: () async {
+                    await FlutterShare.share(
+                      title: 'Biblia Reina Valera 1960',
+                      text:
+                          'Descarga la aplicación de la Biblia Reina Valera 1960, Canticos y Coros espirituales en el siguiente enlace: https://play.google.com/store/apps/details?id=com.misaellsoler.biblia',
+                    );
+                  },
+                  icon:
+                      const Icon(Icons.share, color: Colors.indigo, size: 25.0),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            // color: Colors.red[200],
+            margin: const EdgeInsets.only(
+              top: 300.0,
+              left: 40.0,
+            ),
+            constraints: BoxConstraints(
+              maxHeight: 100, // Ajusta este valor según sea necesario
+            ),
+            child: AdmobBanner(
+                adUnitId: "ca-app-pub-7568006196201830/2419923083",
+                adSize: AdmobBannerSize.BANNER),
+          ),
         ],
       ),
-      // bottomNavigationBar: BottomNavigator(),
     );
   }
 }

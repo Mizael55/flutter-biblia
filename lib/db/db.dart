@@ -70,15 +70,13 @@ class DBProvider {
   Future<List<Map<String, dynamic>>> getAllFavorites() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db!.query('favorites');
-    print(maps);
     return maps.isNotEmpty ? maps : [];
   }
 
   deleteFavorite(id) async {
     final db = await database;
-    final data =
-        await db!.delete('favorites', where: 'id = ?', whereArgs: [id]);
-    print(data);
+
+    await db!.delete('favorites', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<void> insertFavoriteSong(String title, String lyrics) async {
