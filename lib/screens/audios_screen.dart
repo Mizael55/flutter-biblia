@@ -204,7 +204,7 @@ class _AudioScreenState extends State<AudioScreen> {
                       ? _namesKoinonia[index]
                       : widget.titleNumber == 2
                           ? _namesEnviados[index]
-                          : _namesVoces[index]),
+                          : _namesVoces[index], style: TextStyle(fontSize: 18)),
                 );
               });
             },
@@ -224,7 +224,7 @@ class _AudioScreenState extends State<AudioScreen> {
             case 2:
               return Text("Los enviados de Dios");
             case 3:
-              return Text("Voces de las iglesias");
+              return Text("VOCES de la iglesia");
             default:
               return Text("KOINONIA IDC");
           }

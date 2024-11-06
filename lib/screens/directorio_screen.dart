@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../widgets/widgets.dart';
@@ -11,10 +12,28 @@ class _DirectorioScreenState extends State<DirectorioScreen> {
   final PdfViewerController _pdfViewerController = PdfViewerController();
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = '';
+  late AdmobInterstitial interstitialAd;
+  bool _isAdLoaded = false;
 
   @override
   void initState() {
     super.initState();
+    interstitialAd = AdmobInterstitial(
+      adUnitId: "ca-app-pub-7568006196201830/3482519473",
+      listener: (AdmobAdEvent event, Map<String, dynamic>? args) {
+        if (event == AdmobAdEvent.loaded) {
+          if (!_isAdLoaded) {
+            interstitialAd.show();
+            setState(() {
+              _isAdLoaded = true;
+            });
+          }
+        }
+      },
+    );
+
+    interstitialAd.load();
+
     _searchController.addListener(() {
       setState(() {
         searchQuery = _searchController.text.toLowerCase();
