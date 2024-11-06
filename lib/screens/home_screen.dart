@@ -119,7 +119,6 @@ class _HomeScreenState extends State<HomeScreen> {
           print('data: $data');
         },
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Padding(
               padding:
@@ -178,19 +177,69 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: GestureDetector(
-                onTap: () {
-                  Provider.of<ScreenRoute>(context, listen: false).setIndex(0);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AudioScreen()));
-                },
-                child: CircleAvatar(
-                  radius: 35.0,
-                  backgroundImage: AssetImage('assets/img/koinonia.jpeg'),
+            Text('Grupos de cantos acapella',
+                style: TextStyle(
+                    color: theme == ThemeData.dark() ? Colors.white : Colors.black,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold)),
+                    SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Provider.of<ScreenRoute>(context, listen: false)
+                          .setIndex(0);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AudioScreen(
+                                    titleNumber: 1,
+                              )));
+                    },
+                    child: CircleAvatar(
+                      radius: 35.0,
+                      backgroundImage: AssetImage('assets/img/koinonia.jpeg'),
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Provider.of<ScreenRoute>(context, listen: false)
+                          .setIndex(0);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AudioScreen(titleNumber: 2)));
+                    },
+                    child: CircleAvatar(
+                      radius: 35.0,
+                      backgroundImage: AssetImage('assets/img/enviados.jpg'),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Provider.of<ScreenRoute>(context, listen: false)
+                          .setIndex(0);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AudioScreen(titleNumber: 3)));
+                    },
+                    child: CircleAvatar(
+                      radius: 35.0,
+                      backgroundImage: AssetImage('assets/img/voces.jpg'),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Expanded(
               child: Container(

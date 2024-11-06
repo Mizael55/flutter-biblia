@@ -84,7 +84,9 @@ flutter:
     - assets/himnario_data.json
     - assets/spanish.json
     - assets/img/
-    - assets/audio/
+    - assets/audios/koinonia/
+    - assets/audios/enviados/
+    - assets/audios/voces/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
